@@ -1,0 +1,170 @@
+﻿
+@model Yad_Aloun2.Models.Admin
+
+@{
+    ViewData["Title"] = "إنشاء حساب مسؤول";
+}
+
+<div class="container py-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-10">
+
+            <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+
+                
+                <!-- Header -->
+                <div style="background-color:#064e3b;"
+                     class="text-white text-center py-4">
+
+                    <h2 class="fw-bold">
+                        إنشاء حساب مسؤول
+                    </h2>
+
+                    <p class="mb-0">
+                        أدخل بيانات المسؤول لإكمال عملية التسجيل
+                    </p>
+
+                </div>
+                @if (ViewBag.AdminExists == true)
+                {
+                    <div class="alert alert-warning text-center">
+                        تم إنشاء حساب المسؤول مسبقًا، لا يمكن إنشاء حساب مسؤول آخر.
+                    </div>
+                }
+                else
+                {
+                    <!-- Body -->
+                    <div class="card-body p-5">
+
+                        <form asp-action="CreateAdmin"
+                        asp-controller="Admin"
+                        method="post"
+                        enctype="multipart/form-data">
+
+                            <div class="row g-4">
+
+                                <!-- الاسم -->
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">
+                                        الاسم الكامل
+                                    </label>
+
+                                    <input asp-for="AdminName"
+                                    class="form-control form-control-lg rounded-3"
+                                    placeholder="أدخل الاسم الكامل" />
+                                </div>
+
+
+                                <!-- البريد -->
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">
+                                        البريد الإلكتروني
+                                    </label>
+
+                                    <input asp-for="Email"
+                                    class="form-control form-control-lg rounded-3"
+                                    placeholder="example@gmail.com" />
+                                </div>
+
+                                <!-- الهاتف -->
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">
+                                        رقم الهاتف
+                                    </label>
+
+                                    <input asp-for="PhoneNumber"
+                                    class="form-control form-control-lg rounded-3"
+                                    placeholder="07XXXXXXXX" />
+                                </div>
+
+                                <!-- العمر -->
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">
+                                        العمر
+                                    </label>
+
+                                    <input asp-for="Age"
+                                    type="number"
+                                    class="form-control form-control-lg rounded-3"
+                                    placeholder="أدخل العمر" />
+                                </div>
+
+                                <!-- الموقع -->
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">
+                                        الموقع
+                                    </label>
+
+                                    <input asp-for="Location"
+                                    class="form-control form-control-lg rounded-3"
+                                    placeholder="أدخل الموقع" />
+                                </div>
+
+                                <!-- الدور -->
+                                <select asp-for="Role" class="form-select">
+                                    <option value="">اختر الدور</option>
+                                    <option value="Admin">مدير النظام</option>
+                                    <option value="Supervisor">مشرف</option>
+                                </select>
+
+                                <!-- كلمة المرور -->
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">
+                                        كلمة المرور
+                                    </label>
+
+                                    <input asp-for="AdminPassword"
+                                    type="password"
+                                    class="form-control form-control-lg rounded-3"
+                                    placeholder="********" />
+                                </div>
+
+                                <!-- تأكيد كلمة المرور -->
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">
+                                        تأكيد كلمة المرور
+                                    </label>
+
+                                    <input asp-for="ConfirmPassword"
+                                    type="password"
+                                    class="form-control form-control-lg rounded-3"
+                                    placeholder="********" />
+                                </div>
+
+                                <!-- الصورة -->
+                                <div class="col-md-6"> <label class="form-label">الصورة الشخصية</label> <input asp-for="ProfileImagePath" type="file" class="form-control custom-input" /> </div>
+
+                                <!-- CV -->
+                                <div class="col-md-6"> <label class="form-label">السيرة الذاتية (CV)</label> <input asp-for="CV_Path" type="file" class="form-control custom-input" /> </div>
+
+                                <!-- الشهادات -->
+                                <div class="col-md-6"> <label class="form-label">الشهادات</label> <input asp-for="Certificates_Path" type="file" class="form-control custom-input" /> </div>
+
+                            </div>
+
+                            <div class="text-center mt-5">
+
+                                <button type="submit"
+                                class="btn btn-lg px-5 py-3 rounded-pill shadow text-white"
+                                style="background-color:#064e3b; border-color:#064e3b;">
+
+                                    إنشاء حساب المسؤول
+
+                                </button>
+
+                            </div>
+                            <div asp-validation-summary="All" class="text-danger"></div>
+                        </form>
+
+                    </div>
+                }
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+```

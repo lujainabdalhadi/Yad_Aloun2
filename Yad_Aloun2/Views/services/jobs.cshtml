@@ -1,0 +1,503 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دليل الوظائف - يد العون</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #064e3b;
+            --primary-soft: #ecfdf5;
+            --accent: #10b981;
+            --bg: #f8fafc;
+            --text-dark: #1e293b;
+            --text-light: #64748b;
+            --white: #ffffff;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* الهيدر المعدل */
+        .top-nav {
+            background-color: var(--primary);
+            color: white;
+            padding: 15px 2%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            width: 100%;
+        }
+
+        .page-title {
+            font-size: 22px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+
+            .nav-links a {
+                color: #cbd5e1;
+                text-decoration: none;
+                font-size: 15px;
+                transition: 0.3s;
+            }
+
+                .nav-links a:hover {
+                    color: white;
+                }
+
+        .support-btn {
+            background: var(--accent);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
+        }
+
+            .support-btn:hover {
+                background: #059669;
+            }
+
+        /* منطقة البحث والفلاتر - ملء الشاشة */
+        .filter-section {
+            background: var(--white);
+            padding: 25px 2%;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            align-items: flex-end;
+            box-shadow: var(--shadow);
+            width: 100%;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex: 1;
+            min-width: 200px;
+        }
+
+            .filter-group label {
+                font-weight: 600;
+                font-size: 14px;
+                color: var(--text-dark);
+            }
+
+            .filter-group select, .filter-group input {
+                padding: 12px 15px;
+                border: 1.5px solid #e2e8f0;
+                border-radius: 10px;
+                outline: none;
+                font-size: 14px;
+                background: #fdfdfd;
+                transition: 0.3s;
+            }
+
+                .filter-group select:focus, .filter-group input:focus {
+                    border-color: var(--accent);
+                    background: white;
+                }
+
+        .btn-search {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.3s;
+        }
+
+            .btn-search:hover {
+                background: #043d2e;
+                transform: translateY(-2px);
+            }
+
+        /* منطقة المحتوى - ملء الشاشة */
+        .content-wrapper {
+            padding: 30px 2%;
+            width: 100%;
+            flex-grow: 1;
+        }
+
+        .section-header {
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+            .section-header h2 {
+                font-size: 24px;
+                color: var(--primary);
+            }
+
+        .results-count {
+            color: var(--text-light);
+            font-size: 14px;
+            background: #e2e8f0;
+            padding: 6px 15px;
+            border-radius: 20px;
+        }
+
+        /* شبكة الوظائف */
+        #jobsContainer {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        /* بطاقة الوظيفة */
+        .job-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 20px;
+            border: 1px solid #f1f5f9;
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .job-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.1);
+            border-color: var(--accent);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .badge {
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .badge-remote {
+            background: #eff6ff;
+            color: #2563eb;
+        }
+
+        .badge-fulltime {
+            background: #fdf2f8;
+            color: #db2777;
+        }
+
+        .company-logo {
+            width: 45px;
+            height: 45px;
+            background: #f8fafc;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            color: var(--primary);
+            border: 1px solid #e2e8f0;
+        }
+
+        .job-title {
+            font-size: 17px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: var(--text-dark);
+        }
+
+        .company-name {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 13px;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .job-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+            .detail-item i {
+                color: var(--accent);
+                font-size: 14px;
+            }
+
+        .accessibility-tag {
+            background: #f0fdf4;
+            color: #166534;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 15px;
+            border-top: 1px dashed #e2e8f0;
+        }
+
+        .salary {
+            font-weight: bold;
+            color: var(--primary);
+            font-size: 14px;
+        }
+
+        .btn-apply {
+            background: var(--primary);
+            color: white;
+            padding: 8px 18px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+            .btn-apply:hover {
+                background: var(--accent);
+            }
+
+        .no-results {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 80px 20px;
+            background: white;
+            border-radius: 20px;
+            color: var(--text-light);
+        }
+
+        media (max-width: 768px) {
+            .filter-section {
+                padding: 20px;
+            }
+
+            .filter-group {
+                min-width: 100%;
+            }
+
+            .nav-links {
+                display: none;
+            }
+            /* إخفاء الروابط في الجوال للتبسيط */
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark main-navbar shadow-sm px-4 py-3" style="background-color: #064e3b;">
+        <div class="container-fluid d-flex justify-content-between align-items-center">
+
+            <div class="d-flex align-items-center gap-4">
+
+                <div class="d-flex align-items-center gap-2">
+                    <i class="fa-solid fa-hand-holding-heart text-white" style="font-size:42px;"></i>
+                    <span class="logo-title text-white fw-bold fs-3">يد العون</span>
+                </div>
+
+                <div class="vr" style="width: 2px; background-color: #ffffff; opacity: 0.5;"></div>
+
+                <div class="d-flex align-items-center gap-2 text-white">
+                    <!--i class="fas fa-map-marked-alt text-warning fs-4"></!--i-->
+                    <span class="fs-5 fw-bold">دليل الوظائف</span>
+                </div>
+
+            </div>
+
+            <button class="btn px-4 py-2 rounded-pill fw-semibold shadow-sm"
+                    style="background-color: #04362a; color: white; border: 1px solid #ffffff;"
+                    onclick="location.href='@Url.Action("Support", "services")'">
+                <i class="fas fa-headset me-2"></i>
+                الدعم الفني
+            </button>
+
+        </div>
+    </nav>
+
+    <!-- منطقة الفلاتر -->
+    <section class="filter-section">
+        <div class="filter-group">
+            <label>البحث عن وظيفة</label>
+            <input type="text" id="searchInput" placeholder="ابحث بالمسمى الوظيفي أو الشركة...">
+        </div>
+        <div class="filter-group">
+            <label>تحديد المنطقة</label>
+            <select id="regionFilter">
+                <option value="all">كل المناطق</option>
+                <option value="الرياض">عمان</option>
+                <option value="جدة">اربد</option>
+                <option value="الدمام">العقبة</option>
+                <option value="مكة المكرمة">الزرقاء</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label>نوع الإعاقة</label>
+            <select id="disabilityFilter">
+                <option value="all">كل أنواع الإعاقة</option>
+                <option value="حركية">حركية</option>
+                <option value="سمعية">سمعية</option>
+                <option value="بصرية">بصرية</option>
+            </select>
+        </div>
+        <button class="btn-search" onclick="filterJobs()"><i class="fas fa-search"></i> تحديث النتائج</button>
+    </section>
+
+    <main class="content-wrapper">
+        <div class="section-header">
+            <h2>قائمة الفرص المتاحة</h2>
+            <span class="results-count" id="countDisplay">0 وظيفة</span>
+        </div>
+
+        <div id="jobsContainer">
+            <!-- يتم التوليد بواسطة JS -->
+        </div>
+    </main>
+
+    <script>
+        const allJobs = [
+            { id: 1, title: "مصمم جرافيك", company: "وكالة الإبداع", region: "عمان", disability: "سمعية", type: "عن بُعد", salary: "7000 ريال", icon: "fa-palette" },
+            { id: 2, title: "مدخل بيانات", company: "شركة التقنية", region: "اربد", disability: "حركية", type: "دوام كامل", salary: "5500 ريال", icon: "fa-keyboard" },
+            { id: 3, title: "خدمة عملاء", company: "مركز الاتصال", region: "الزرقاء", disability: "بصرية", type: "عن بُعد", salary: "6000 ريال", icon: "fa-headset" },
+            { id: 4, title: "مساعد إداري", company: "المؤسسة الوطنية", region: "العقبة", disability: "حركية", type: "دوام كامل", salary: "5000 ريال", icon: "fa-folder-open" },
+            { id: 5, title: "محلل بيانات", company: "منظومة المعلومات", region: "جرش", disability: "حركية", type: "دوام كامل", salary: "9000 ريال", icon: "fa-chart-pie" },
+            { id: 6, title: "كاتب محتوى", company: "دار النشر", region: "الرمثا", disability: "حركية", type: "عن بُعد", salary: "4500 ريال", icon: "fa-pen-nib" },
+            { id: 7, title: "محاسب مالي", company: "مكتب التجارة", region: "البلقاء", disability: "سمعية", type: "دوام كامل", salary: "7500 ريال", icon: "fa-calculator" },
+            { id: 8, title: "مبرمج ويب", company: "ستارتب تيك", region: "عجلون", disability: "حركية", type: "عن بُعد", salary: "11000 ريال", icon: "fa-code" }
+        ];
+
+        function createJobCard(job) {
+            return `
+                <div class="job-card">
+                    <div class="card-header">
+                        <div class="company-logo"><i class="fas ${job.icon}"></i></div>
+                        <span class="badge ${job.type === 'عن بُعد' ? 'badge-remote' : 'badge-fulltime'}">${job.type}</span>
+                    </div>
+                    <div>
+                        <h3 class="job-title">${job.title}</h3>
+                        <span class="company-name">${job.company}</span>
+                        <div class="job-details">
+                            <div class="detail-item"><i class="fas fa-map-marker-alt"></i> ${job.region}</div>
+                            <div class="detail-item"><i class="fas fa-calendar-alt"></i> نُشر اليوم</div>
+                        </div>
+                        <div class="accessibility-tag">
+                            <i class="fas fa-universal-access"></i> ملائم للإعاقة ${job.disability}
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="salary">${job.salary}</div>
+                        <a href="javascript:alert('تم فتح نافذة التقديم!')" class="btn-apply">تقديم الآن</a>
+                    </div>
+                </div>
+            `;
+        }
+
+        function filterJobs() {
+            const searchText = document.getElementById('searchInput').value.toLowerCase();
+            const regionValue = document.getElementById('regionFilter').value;
+            const disabilityValue = document.getElementById('disabilityFilter').value;
+
+            const filtered = allJobs.filter(job => {
+                const matchesSearch = job.title.toLowerCase().includes(searchText) || job.company.toLowerCase().includes(searchText);
+                const matchesRegion = (regionValue === 'all' || job.region === regionValue);
+                const matchesDisability = (disabilityValue === 'all' || job.disability === disabilityValue);
+                return matchesSearch && matchesRegion && matchesDisability;
+            });
+
+            renderJobs(filtered);
+        }
+
+        function renderJobs(jobsList) {
+            const container = document.getElementById('jobsContainer');
+            const countDisplay = document.getElementById('countDisplay');
+
+            if (jobsList.length === 0) {
+                container.innerHTML = `
+                    <div class="no-results">
+                        <i class="fas fa-search-minus fa-4x" style="margin-bottom:20px; color:#cbd5e1"></i>
+                        <h3>لا توجد نتائج مطابقة</h3>
+                        <p>جرّب تغيير فلاتر البحث أو الكلمات المفتاحية</p>
+                    </div>`;
+            } else {
+                container.innerHTML = jobsList.map(job => createJobCard(job)).join('');
+            }
+            countDisplay.innerText = `${jobsList.length} وظيفة متاحة`;
+        }
+
+        window.onload = () => {
+            renderJobs(allJobs);
+        };
+    </script>
+</body>
+</html>

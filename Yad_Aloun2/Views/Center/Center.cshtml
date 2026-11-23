@@ -1,0 +1,73 @@
+﻿
+
+@model IEnumerable<Yad_Aloun2.Models.JobOpportunity>
+
+@{
+    ViewData["Title"] = "Jobs";
+}
+
+<div class="container mt-5">
+
+    <h2 class="text-center mb-4">Available Jobs</h2>
+
+    <div class="row">
+
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card shadow rounded-4 h-100">
+
+                    <div class="card-body">
+
+                        <!-- Job Title -->
+                        <h5 class="card-title text-primary">
+                            @item.JobTitle
+                        </h5>
+
+                        <!-- Company -->
+                        <p class="text-muted mb-1">
+                            <strong>Company:</strong> 
+                        </p>
+
+                        <!-- Location -->
+                        <p class="mb-1">
+                            📍 @item.Location
+                        </p>
+
+                        <!-- Type -->
+                        <p class="mb-1">
+                            💼 @item.JobType
+                        </p>
+
+                        <!-- Salary -->
+                        <p class="mb-2 text-success">
+                            💰 @item.Salary
+                        </p>
+
+                        <!-- Disability -->
+                        <span class="badge bg-info">
+                            @item.DisabilityType
+                        </span>
+
+                    </div>
+
+                    <div class="card-footer bg-white border-0 text-center">
+
+                        <a asp-action="Details" asp-route-id="@item.Id"
+                           class="btn btn-outline-primary btn-sm">
+                            View Details
+                        </a>
+
+                        <a asp-action="Apply" asp-route-id="@item.Id"
+                           class="btn btn-success btn-sm">
+                            Apply
+                        </a>
+
+                    </div>
+
+                </div>
+            </div>
+        }
+
+    </div>
+</div>

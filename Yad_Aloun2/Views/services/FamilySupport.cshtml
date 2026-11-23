@@ -1,0 +1,794 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة يد العون | الأنشطة الترفيهية والدعم النفسي</title>
+
+    <!-- رابط مكتبة Bootstrap 5.3 الرسمي من الـ CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <!-- خط القاهرة من Google Fonts لتنسيق النصوص العربية بشكل احترافي -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- مكتبة الأيقونات التفاعلية Lucide -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-light text-dark" style="font-family: 'Cairo', sans-serif;">
+
+    <!-- شريط التنقل العلوي المتجاوب (Navbar) المعتمد كلياً على فئات Bootstrap ولون مخصص -->
+    <nav class="navbar navbar-expand-lg navbar-dark shadow-sm py-2 sticky-top" style="background-color: #064e3b;">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center gap-3" href="#">
+                <div class="bg-white d-flex align-items-center justify-content-center rounded-3" style="width: 42px; height: 42px; color: #064e3b;">
+                    <i class="fa-solid fa-hand-holding-heart text-white" style="font-size:40px;"></i>
+                </div>
+                <div>
+                    <h1 class="h5 m-0 fw-bold text-white">يد العون</h1>
+                    <p class="m-0 text-white-50" style="font-size: 0.72rem;">مبادرات ترفيهية ونفسية ملهمة</p>
+                </div>
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-2">
+                    <li class="nav-item">
+                        <a class="nav-link text-white fw-bold active" aria-current="page" href="/Home/Index"></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white-50" href="#activitiesSection"></a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center gap-2 ms-lg-3 mt-3 mt-lg-0">
+                    <button class="btn btn-outline-light rounded-pill px-4 fw-bold d-flex align-items-center gap-2" onclick="openMyBookingsModal()">
+                        <i data-lucide="ticket" style="width: 18px; height: 18px;"></i>
+                        <span>تذاكري</span>
+                        <span class="badge bg-danger rounded-pill" id="btnBadge" style="display: none;">0</span>
+                    </button>
+                    <!--button class="btn btn-light rounded-pill px-4 fw-bold" style="color: #064e3b;">بوابة المستفيد</!--button-->
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- المحتوى الرئيسي للمنصة -->
+    <main class="container py-5">
+
+        <!-- مقدمة الصفحة والترحيب بالزوار -->
+        <div class="text-center mb-5">
+            <h2 class="display-6 fw-bold mb-3" style="color: #064e3b;">الأنشطة الترفيهية وبرامج الدعم النفسي</h2>
+            <p class="text-muted mx-auto" style="max-width: 700px; font-size: 1.1rem;">
+                مجتمع ترفيهي ونفسي آمن ومخصص بالكامل للأشخاص ذوي الإعاقة وعائلاتهم في الأردن. نهدف لدمج المجتمع بالحب والمرح عبر تذاكر رقمية فورية ومجانية.
+            </p>
+            <div class="mx-auto rounded-pill" style="width: 100px; height: 4px; background-color: #064e3b;"></div>
+        </div>
+
+        <!-- فلاتر تصفية الفعاليات المعتمدة على تصميم مكونات بوتستراب والبطاقات -->
+        <div class="card border-0 rounded-4 shadow-sm mb-5 p-4 bg-white">
+            <div class="row g-3">
+
+                <!-- فلتر تحديد المحافظات الأردنية -->
+                <div class="col-md-3">
+                    <label class="form-label fw-bold small mb-2" style="color: #064e3b;">المحافظة الأردنية</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light border-0" style="color: #064e3b;"><i data-lucide="map-pin" style="width: 18px;"></i></span>
+                        <select id="govFilter" class="form-select bg-light border-0 py-2" onchange="applyFilters()">
+                            <option value="all">كل المحافظات والأماكن</option>
+                            <option value="عمان">عمان</option>
+                            <option value="إربد">إربد</option>
+                            <option value="الزرقاء">الزرقاء</option>
+                            <option value="السلط">السلط (البلقاء)</option>
+                            <option value="العقبة">العقبة</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- فلتر نوع المبادرة والنشاط -->
+                <div class="col-md-3">
+                    <label class="form-label fw-bold small mb-2" style="color: #064e3b;">نوع النشاط والبرنامج</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light border-0" style="color: #064e3b;"><i data-lucide="sparkles" style="width: 18px;"></i></span>
+                        <select id="typeFilter" class="form-select bg-light border-0 py-2" onchange="applyFilters()">
+                            <option value="all">كل أنواع البرامج</option>
+                            <option value="دعم نفسي">برامج إرشاد ودعم نفسي</option>
+                            <option value="ترفيهي ورياضي">أنشطة ترفيهية ورياضية</option>
+                            <option value="علاج بالفن">علاج بالموسيقى والفن</option>
+                            <option value="لقاء اجتماعي">لقاءات تواصل اجتماعي</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- فلتر البحث بالنص الحر والكلمة المفتاحية -->
+                <div class="col-md-3">
+                    <label class="form-label fw-bold small mb-2" style="color: #064e3b;">البحث بكلمة مفتاحية</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light border-0" style="color: #064e3b;"><i data-lucide="search" style="width: 18px;"></i></span>
+                        <input type="text" id="searchKeyword" class="form-control bg-light border-0 py-2" placeholder="رسم، يوغا، رياضة..." onkeyup="applyFilters()">
+                    </div>
+                </div>
+
+                <!-- زر إعادة تصفير الفلاتر -->
+                <div class="col-md-3 d-flex align-items-end">
+                    <button class="btn w-100 py-2 fw-bold rounded-3" style="background-color: rgba(6, 78, 59, 0.1); color: #064e3b; border: none;" onclick="resetAllFilters()">
+                        <i data-lucide="rotate-ccw" class="me-1" style="width: 16px; vertical-align: middle;"></i>
+                        <span>إعادة تعيين</span>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- تنبيه الخطأ والتحذير المخصص من بوتستراب لتجنب تكرار الحجوزات -->
+        <div id="bookingWarningAlert" class="alert alert-danger alert-dismissible fade show d-none mb-4 rounded-4 shadow-sm" role="alert">
+            <div class="d-flex align-items-center gap-2">
+                <i data-lucide="alert-triangle" class="text-danger" style="width: 24px; height: 24px;"></i>
+                <div>
+                    <strong>عذراً!</strong> رقم الهاتف هذا مسجل بالفعل في هذه الفعالية سابقاً.
+                </div>
+            </div>
+            <button type="button" class="btn-close" onclick="hideBookingWarning()"></button>
+        </div>
+
+        <!-- شبكة عرض المبادرات التفاعلية -->
+        <div id="activitiesSection" class="row g-4">
+
+            <!-- فعالية 1 -->
+            <div class="col-md-6 col-lg-4 activity-card-wrapper" data-gov="عمان" data-type="دعم نفسي">
+                <div class="card h-100 border-0 rounded-4 shadow-sm d-flex flex-column">
+                    <div class="p-4 pb-1 d-flex justify-content-between align-items-center">
+                        <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-1.5 fw-bold" style="font-size: 0.75rem;">دعم نفسي</span>
+                        <span class="badge bg-light text-secondary rounded-3 px-3 py-1.5 fw-bold" style="font-size: 0.75rem;">عمان</span>
+                    </div>
+                    <div class="p-4 pt-2 flex-grow-1">
+                        <h3 class="activity-title h5 fw-bold mb-3" style="color: #064e3b;">جلسة دعم نفسي وتفريغ وجداني</h3>
+                        <p class="activity-desc text-muted mb-4 small" style="line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; height: 4.8em;">جلسة حوارية تفاعلية دافئة تتيح للأشخاص ذوي الإعاقة التعبير عن مشاعرهم وتطوير المرونة النفسية بإشراف نخبة من الأخصائيين النفسيين المعتمدين.</p>
+
+                        <div class="d-flex align-items-center gap-3 p-2 bg-light rounded-3 mb-2 border">
+                            <div class="d-flex align-items-center justify-content-center rounded-2" style="width: 32px; height: 32px; flex-shrink: 0; background-color: rgba(6, 78, 59, 0.1); color: #064e3b;">
+                                <i data-lucide="building" style="width: 16px;"></i>
+                            </div>
+                            <div>
+                                <span class="text-muted d-block" style="font-size: 0.75rem;">الجهة المنظمة للمبادرة</span>
+                                <span class="fw-bold d-block text-dark small">جمعية الياسمين الخيرية</span>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-center gap-3 p-2 bg-light rounded-3 mb-2 border">
+                            <div class="d-flex align-items-center justify-content-center rounded-2" style="width: 32px; height: 32px; flex-shrink: 0; background-color: rgba(6, 78, 59, 0.1); color: #064e3b;">
+                                <i data-lucide="map" style="width: 16px;"></i>
+                            </div>
+                            <div>
+                                <span class="text-muted d-block" style="font-size: 0.75rem;">المكان التفصيلي</span>
+                                <span class="fw-bold d-block text-dark small">جبل عمان - مركز الدعم الاجتماعي</span>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-center gap-3 p-2 bg-light rounded-3 mb-2 border">
+                            <div class="d-flex align-items-center justify-content-center rounded-2" style="width: 32px; height: 32px; flex-shrink: 0; background-color: rgba(6, 78, 59, 0.1); color: #064e3b;">
+                                <i data-lucide="calendar" style="width: 16px;"></i>
+                            </div>
+                            <div>
+                                <span class="text-muted d-block" style="font-size: 0.75rem;">الزمان والتوقيت</span>
+                                <span class="fw-bold d-block text-dark small">كل سبت | 10:00 صباحاً - 12:00 ظهراً</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4 bg-light border-top">
+                        <button class="btn w-100 py-2.5 fw-bold rounded-3 d-flex align-items-center justify-content-center gap-2 text-white" style="background-color: #064e3b; border: none;" onclick="openBookingForm('جلسة دعم نفسي وتفريغ وجداني', 'جمعية الياسمين الخيرية', 'جبل عمان - مركز الدعم الاجتماعي', 'كل سبت | 10:00 صباحاً - 12:00 ظهراً')">
+                            <i data-lucide="check-circle" style="width: 18px;"></i>
+                            <span>حجز مقعد مجاني</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- فعالية 2 -->
+            <div class="col-md-6 col-lg-4 activity-card-wrapper" data-gov="إربد" data-type="علاج بالفن">
+                <div class="card h-100 border-0 rounded-4 shadow-sm d-flex flex-column">
+                    <div class="p-4 pb-1 d-flex justify-content-between align-items-center">
+                        <span class="badge bg-purple-subtle text-purple rounded-pill px-3 py-1.5 fw-bold" style="background-color: #f3e8ff; color: #6b21a8; font-size: 0.75rem;">علاج بالفن</span>
+                        <span class="badge bg-light text-secondary rounded-3 px-3 py-1.5 fw-bold" style="font-size: 0.75rem;">إربد</span>
+                    </div>
+                    <div class="p-4 pt-2 flex-grow-1">
+                        <h3 class="activity-title h5 fw-bold mb-3" style="color: #064e3b;">ورشة ألوان وأصوات للتفريغ التعبيري</h3>
+                        <p class="activity-desc text-muted mb-4 small" style="line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; height: 4.8em;">استكشاف الإمكانات الإبداعية الكامنة من خلال الرسم الحر والموسيقى التعبيرية الهادئة لتعزيز الثقة بالنفس وتطوير المهارات الحركية الدقيقة بصحبة فنانين داعمين.</p>
+
+                        <div class="d-flex align-items-center gap-3 p-2 bg-light rounded-3 mb-2 border">
+                            <div class="d-flex align-items-center justify-content-center rounded-2" style="width: 32px; height: 32px; flex-shrink: 0; background-color: rgba(6, 78, 59, 0.1); color: #064e3b;">
+                                <i data-lucide="building" style="width: 16px;"></i>
+                            </div>
+                            <div>
+                                <span class="text-muted d-block" style="font-size: 0.75rem;">الجهة المنظمة للمبادرة</span>
+                                <span class="fw-bold d-block text-dark small">مؤسسة جود للتنمية الإبداعية</span>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-center gap-3 p-2 bg-light rounded-3 mb-2 border">
+                            <div class="d-flex align-items-center justify-content-center rounded-2" style="width: 32px; height: 32px; flex-shrink: 0; background-color: rgba(6, 78, 59, 0.1); color: #064e3b;">
+                                <i data-lucide="map" style="width: 16px;"></i>
+                            </div>
+                            <div>
+                                <span class="text-muted d-block" style="font-size: 0.75rem;">المكان التفصيلي</span>
+                                <span class="fw-bold d-block text-dark small">إربد - بيت السرايا القديم</span>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-center gap-3 p-2 bg-light rounded-3 mb-2 border">
+                            <div class="d-flex align-items-center justify-content-center rounded-2" style="width: 32px; height: 32px; flex-shrink: 0; background-color: rgba(6, 78, 59, 0.1); color: #064e3b;">
+                                <i data-lucide="calendar" style="width: 16px;"></i>
+                            </div>
+                            <div>
+                                <span class="text-muted d-block" style="font-size: 0.75rem;">الزمان والتوقيت</span>
+                                <span class="fw-bold d-block text-dark small">الأربعاء، 17 يونيو | 4:30 عصراً</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4 bg-light border-top">
+                        <button class="btn w-100 py-2.5 fw-bold rounded-3 d-flex align-items-center justify-content-center gap-2 text-white" style="background-color: #064e3b; border: none;" onclick="openBookingForm('ورشة ألوان وأصوات للتفريغ التعبيري', 'مؤسسة جود للتنمية الإبداعية', 'إربد - بيت السرايا القديم', 'الأربعاء، 17 يونيو | 4:30 عصراً')">
+                            <i data-lucide="check-circle" style="width: 18px;"></i>
+                            <span>حجز مقعد مجاني</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- فعالية 3 -->
+            <div class="col-md-6 col-lg-4 activity-card-wrapper" data-gov="الزرقاء" data-type="ترفيهي ورياضي">
+                <div class="card h-100 border-0 rounded-4 shadow-sm d-flex flex-column">
+                    <div class="p-4 pb-1 d-flex justify-content-between align-items-center">
+                        <span class="badge bg-warning-subtle text-warning rounded-pill px-3 py-1.5 fw-bold" style="background-color: #fef3c7; color: #92400e; font-size: 0.75rem;">ترفيهي ورياضي</span>
+                        <span class="badge bg-light text-secondary rounded-3 px-3 py-1.5 fw-bold" style="font-size: 0.75rem;">الزرقاء</span>
+                    </div>
+                    <div class="p-4 pt-2 flex-grow-1">
+                        <h3 class="activity-title h5 fw-bold mb-3" style="color: #064e3b;">يوم الألعاب المائية والحركية الدامجة</h3>
+                        <p class="activity-desc text-muted mb-4 small" style="line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; height: 4.8em;">مجموعة من الألعاب الرياضية والأنشطة الترفيهية المجهزة والآمنة التي تهدف لتنشيط المهارات الجسدية وبث روح المرح والبهجة في قلوب أبطالنا الرائعين.</p>
+
+                        <div class="d-flex align-items-center gap-3 p-2 bg-light rounded-3 mb-2 border">
+                            <div class="d-flex align-items-center justify-content-center rounded-2" style="width: 32px; height: 32px; flex-shrink: 0; background-color: rgba(6, 78, 59, 0.1); color: #064e3b;">
+                                <i data-lucide="building" style="width: 16px;"></i>
+                            </div>
+                            <div>
+                                <span class="text-muted d-block" style="font-size: 0.75rem;">الجهة المنظمة للمبادرة</span>
+                                <span class="fw-bold d-block text-dark small">نادي الأمل والوفاء لذوي الإعاقة</span>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-center gap-3 p-2 bg-light rounded-3 mb-2 border">
+                            <div class="d-flex align-items-center justify-content-center rounded-2" style="width: 32px; height: 32px; flex-shrink: 0; background-color: rgba(6, 78, 59, 0.1); color: #064e3b;">
+                                <i data-lucide="map" style="width: 16px;"></i>
+                            </div>
+                            <div>
+                                <span class="text-muted d-block" style="font-size: 0.75rem;">المكان التفصيلي</span>
+                                <span class="fw-bold d-block text-dark small">الزرقاء - صالة مدينة الأمير محمد الرياضية</span>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-center gap-3 p-2 bg-light rounded-3 mb-2 border">
+                            <div class="d-flex align-items-center justify-content-center rounded-2" style="width: 32px; height: 32px; flex-shrink: 0; background-color: rgba(6, 78, 59, 0.1); color: #064e3b;">
+                                <i data-lucide="calendar" style="width: 16px;"></i>
+                            </div>
+                            <div>
+                                <span class="text-muted d-block" style="font-size: 0.75rem;">الزمان والتوقيت</span>
+                                <span class="fw-bold d-block text-dark small">الجمعة، 19 يونيو | 9:30 صباحاً</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4 bg-light border-top">
+                        <button class="btn w-100 py-2.5 fw-bold rounded-3 d-flex align-items-center justify-content-center gap-2 text-white" style="background-color: #064e3b; border: none;" onclick="openBookingForm('يوم الألعاب المائية والحركية الدامجة', 'نادي الأمل والوفاء لذوي الإعاقة', 'الزرقاء - صالة مدينة الأمير محمد الرياضية', 'الجمعة، 19 يونيو | 9:30 صباحاً')">
+                            <i data-lucide="check-circle" style="width: 18px;"></i>
+                            <span>حجز مقعد مجاني</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- فعاليات إضافية متجاوبة بالكامل -->
+            <div class="col-md-6 col-lg-4 activity-card-wrapper" data-gov="العقبة" data-type="ترفيهي ورياضي">
+                <div class="card h-100 border-0 rounded-4 shadow-sm d-flex flex-column">
+                    <div class="p-4 pb-1 d-flex justify-content-between align-items-center">
+                        <span class="badge bg-warning-subtle text-warning rounded-pill px-3 py-1.5 fw-bold" style="background-color: #fef3c7; color: #92400e; font-size: 0.75rem;">ترفيهي ورياضي</span>
+                        <span class="badge bg-light text-secondary rounded-3 px-3 py-1.5 fw-bold" style="font-size: 0.75rem;">العقبة</span>
+                    </div>
+                    <div class="p-4 pt-2 flex-grow-1">
+                        <h3 class="activity-title h5 fw-bold mb-3" style="color: #064e3b;">رحلة بحرية ترفيهية ويوجا الشاطئ</h3>
+                        <p class="activity-desc text-muted mb-4 small" style="line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; height: 4.8em;">مغامرة بحرية لطيفة في خليج العقبة على قارب مهيأ، تتخللها تمارين يوجا ميسرة على الشاطئ لتنشيط الحواس والتأمل النفسي في بيئة طبيعية نقية.</p>
+
+                        <div class="d-flex align-items-center gap-3 p-2 bg-light rounded-3 mb-2 border">
+                            <div class="d-flex align-items-center justify-content-center rounded-2" style="width: 32px; height: 32px; flex-shrink: 0; background-color: rgba(6, 78, 59, 0.1); color: #064e3b;">
+                                <i data-lucide="building" style="width: 16px;"></i>
+                            </div>
+                            <div>
+                                <span class="text-muted d-block" style="font-size: 0.75rem;">الجهة المنظمة للمبادرة</span>
+                                <span class="fw-bold d-block text-dark small">ملتقى ثغر الأردن للتأهيل</span>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-center gap-3 p-2 bg-light rounded-3 mb-2 border">
+                            <div class="d-flex align-items-center justify-content-center rounded-2" style="width: 32px; height: 32px; flex-shrink: 0; background-color: rgba(6, 78, 59, 0.1); color: #064e3b;">
+                                <i data-lucide="map" style="width: 16px;"></i>
+                            </div>
+                            <div>
+                                <span class="text-muted d-block" style="font-size: 0.75rem;">المكان التفصيلي</span>
+                                <span class="fw-bold d-block text-dark small">العقبة - شاطئ الغندور العام ممر رقم 4</span>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-center gap-3 p-2 bg-light rounded-3 mb-2 border">
+                            <div class="d-flex align-items-center justify-content-center rounded-2" style="width: 32px; height: 32px; flex-shrink: 0; background-color: rgba(6, 78, 59, 0.1); color: #064e3b;">
+                                <i data-lucide="calendar" style="width: 16px;"></i>
+                            </div>
+                            <div>
+                                <span class="text-muted d-block" style="font-size: 0.75rem;">الزمان والتوقيت</span>
+                                <span class="fw-bold d-block text-dark small">الجمعة، 26 يونيو | 4:00 عصراً</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4 bg-light border-top">
+                        <button class="btn w-100 py-2.5 fw-bold rounded-3 d-flex align-items-center justify-content-center gap-2 text-white" style="background-color: #064e3b; border: none;" onclick="openBookingForm('رحلة بحرية ترفيهية ويوجا الشاطئ', 'ملتقى ثغر الأردن للتأهيل', 'العقبة - شاطئ الغندور العام ممر رقم 4', 'الجمعة، 26 يونيو | 4:00 عصراً')">
+                            <i data-lucide="check-circle" style="width: 18px;"></i>
+                            <span>حجز مقعد مجاني</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- رسالة مخصصة تظهر عندما لا تطابق المبادرات شروط التصفية والبحث -->
+            <div class="col-12 text-center" id="noResultsMessage" style="display: none;">
+                <div class="p-5 border border-2 border-dashed rounded-4 bg-white" style="border-color: #064e3b !important;">
+                    <i data-lucide="frown" class="mb-3" style="width: 48px; height: 48px; color: #064e3b;"></i>
+                    <h3 class="fw-bold" style="color: #064e3b;">لم نجد أي أنشطة تطابق هذا الاختيار</h3>
+                    <p class="text-muted">جرب البحث في محافظة أخرى أو تغيير نوع النشاط لاستكشاف فعاليات إيجابية أخرى.</p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- 1. مودال إدخال وحفظ بيانات التسجيل (من مكونات بوتستراب المدمجة) -->
+    <div class="modal fade" id="bookingFormModal" tabindex="-1" aria-labelledby="bookingFormModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-4 border-0 shadow">
+                <div class="modal-header border-0 pb-0">
+                    <button type="button" class="btn-close ms-0 me-auto" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center px-4 pb-4 pt-0">
+                    <div class="rounded-circle bg-light d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 60px; height: 60px; color: #064e3b;">
+                        <i data-lucide="user-check" style="width: 32px; height: 32px;"></i>
+                    </div>
+                    <h3 class="modal-title h5 fw-bold mb-2" id="bookingFormModalLabel" style="color: #064e3b;">تأكيد حجز مقعد مجاني</h3>
+                    <p class="text-muted mb-4 small">يرجى ملء بياناتك البسيطة لتوليد تذكرة الحضور الإلكترونية فوراً وبشكل تلقائي.</p>
+
+                    <form id="bookingForm" onsubmit="handleBookingSubmit(event)">
+                        <div class="text-start mb-3">
+                            <label class="form-label fw-bold small" style="color: #064e3b;">الاسم الكامل للمستفيد</label>
+                            <input type="text" id="userName" class="form-control py-2 rounded-3" placeholder="أحمد محمود علي" required>
+                        </div>
+                        <div class="text-start mb-4">
+                            <label class="form-label fw-bold small" style="color: #064e3b;">رقم الهاتف للاتصال والـ SMS</label>
+                            <input type="tel" id="userPhone" class="form-control py-2 rounded-3" placeholder="07XXXXXXXX" pattern="07[789][0-9]{7}" title="يرجى إدخال رقم هاتف أردني صحيح مكون من 10 أرقام ويبدأ بـ 07" required>
+                        </div>
+
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn flex-grow-1 py-2 fw-bold rounded-3 text-white" style="background-color: #064e3b; border: none;">تأكيد وتوليد التذكرة</button>
+                            <button type="button" class="btn btn-light px-4 py-2 fw-bold rounded-3" data-bs-dismiss="modal">إلغاء</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. مودال عرض التذكرة الإلكترونية وطباعتها -->
+    <div class="modal fade" id="ticketModal" tabindex="-1" aria-labelledby="ticketModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-4 border-0 shadow">
+                <div class="modal-header border-0 pb-0">
+                    <button type="button" class="btn-close ms-0 me-auto" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center px-4 pb-4 pt-0">
+                    <div class="rounded-circle bg-light d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 60px; height: 60px; color: #064e3b;">
+                        <i data-lucide="sparkles" style="width: 32px; height: 32px;"></i>
+                    </div>
+                    <h3 class="modal-title h5 fw-bold mb-2" id="ticketModalLabel" style="color: #064e3b;">تم توليد تذكرتك بنجاح!</h3>
+                    <p class="text-muted mb-4 small">احفظ صورة التذكرة أو اطبعها لتبرزها عند بوابة الدخول.</p>
+
+                    <!-- حاوية تذكرة يد العون المصممة برمجياً بالكامل بـ Bootstrap -->
+                    <div id="printArea" class="mb-4 text-start">
+                        <div class="p-4 rounded-4 border border-2 border-dashed position-relative overflow-hidden" style="border-color: #064e3b !important; background-color: rgba(6, 78, 59, 0.08);">
+                            <div class="d-flex justify-content-between align-items-center pb-2 mb-3 border-bottom border-opacity-25" style="border-bottom-color: #064e3b !important;">
+                                <div class="d-flex align-items-center gap-2 fw-bold" style="color: #064e3b;">
+                                    <i data-lucide="heart-handshake" style="width: 18px; height: 18px;"></i>
+                                    <span>تذكرة يد العون</span>
+                                </div>
+                                <div class="font-monospace fw-bold bg-white px-2 py-1 rounded" id="ticketSerial" style="color: #064e3b;">YD-000000</div>
+                            </div>
+
+                            <div class="h5 fw-bold text-center mb-3" id="ticketActivityName" style="color: #064e3b;">اسم الفعالية</div>
+
+                            <div class="row g-3 mb-3" style="font-size: 0.85rem;">
+                                <div class="col-6">
+                                    <span class="text-muted d-block mb-1 font-weight-bold">اسم المستفيد</span>
+                                    <span class="fw-bold text-dark" id="ticketAttendee">أحمد محمود</span>
+                                </div>
+                                <div class="col-6">
+                                    <span class="text-muted d-block mb-1 font-weight-bold">رقم الهاتف</span>
+                                    <span class="fw-bold text-dark" id="ticketPhone">07XXXXXXXX</span>
+                                </div>
+                                <div class="col-6">
+                                    <span class="text-muted d-block mb-1 font-weight-bold">الموقع التفصيلي</span>
+                                    <span class="fw-bold text-dark" id="ticketLocation">عمان - اللويبدة</span>
+                                    end-point
+                                </div>
+                                <div class="col-6">
+                                    <span class="text-muted d-block mb-1 font-weight-bold">الزمان والتوقيت</span>
+                                    <span class="fw-bold text-dark" id="ticketTime">السبت | 10:00 ص</span>
+                                </div>
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center p-3 bg-white rounded-3 border">
+                                <div class="text-muted small" style="max-width: 65%; font-size: 0.72rem; line-height: 1.4;">
+                                    <strong>تعليمات هامة:</strong><br>
+                                    يرجى التواجد قبل البدء بـ 15 دقيقة. أظهر رمز الاستجابة الفوري (QR) عند البوابة للدخول المباشر.
+                                </div>
+                                <div class="bg-dark rounded p-1 flex-shrink-0" style="width: 75px; height: 75px;">
+                                    <!-- باركود QR مرسوم بالـ SVG المتكامل -->
+                                    <svg viewBox="0 0 100 100" fill="white">
+                                        <rect x="0" y="0" width="100" height="100" fill="white" />
+                                        <rect x="10" y="10" width="25" height="25" fill="black" />
+                                        <rect x="14" y="14" width="17" height="17" fill="white" />
+                                        <rect x="18" y="18" width="9" height="9" fill="black" />
+
+                                        <rect x="65" y="10" width="25" height="25" fill="black" />
+                                        <rect x="69" y="14" width="17" height="17" fill="white" />
+                                        <rect x="73" y="18" width="9" height="9" fill="black" />
+
+                                        <rect x="10" y="65" width="25" height="25" fill="black" />
+                                        <rect x="14" y="69" width="17" height="17" fill="white" />
+                                        <rect x="18" y="73" width="9" height="9" fill="black" />
+
+                                        <rect x="45" y="15" width="8" height="8" fill="black" />
+                                        <rect x="45" y="30" width="12" height="6" fill="black" />
+                                        <rect x="15" y="45" width="6" height="12" fill="black" />
+                                        <rect x="30" y="45" width="15" height="15" fill="black" />
+                                        <rect x="50" y="50" width="10" height="10" fill="black" />
+                                        <rect x="65" y="45" width="8" height="8" fill="black" />
+                                        <rect x="75" y="45" width="12" height="12" fill="black" />
+                                        <rect x="45" y="65" width="12" height="12" fill="black" />
+                                        <rect x="65" y="65" width="20" height="6" fill="black" />
+                                        <rect x="65" y="75" width="6" height="12" fill="black" />
+                                        <rect x="77" y="77" width="10" height="10" fill="black" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- أزرار التحكم الفوري بالتذكرة وطباعتها -->
+                    <button class="btn btn-dark w-100 py-2.5 fw-bold rounded-3 mb-2" onclick="printTicket()">
+                        <i data-lucide="printer" class="me-1" style="width: 18px; height: 18px; vertical-align: middle;"></i>
+                        <span>اطبع التذكرة أو احفظها كـ PDF</span>
+                    </button>
+                    <button class="btn btn-light w-100 py-2 fw-bold rounded-3" data-bs-dismiss="modal">إغلاق والعودة للموقع</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. مودال لوحة استعراض "حجوزاتي" وتسيير التذاكر المفعّلة -->
+    <div class="modal fade" id="myBookingsModal" tabindex="-1" aria-labelledby="myBookingsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content rounded-4 border-0 shadow">
+                <div class="modal-header border-0 pb-0">
+                    <button type="button" class="btn-close ms-0 me-auto" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body px-4 pb-4 pt-0">
+                    <div class="text-center">
+                        <div class="rounded-circle bg-light d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 60px; height: 60px; color: #064e3b;">
+                            <i data-lucide="ticket" style="width: 32px; height: 32px;"></i>
+                        </div>
+                        <h3 class="modal-title h5 fw-bold mb-2" id="myBookingsModalLabel" style="color: #064e3b;">تذاكري وحجوزاتي النشطة</h3>
+                        <p class="text-muted mb-4 small">إليك كافة المقاعد والفعاليات التي قمت بحجزها. يمكنك عرض التذكرة أو إلغاء الحجز بشكل فوري ومستقل.</p>
+                    </div>
+
+                    <div class="d-flex flex-column gap-3 overflow-y-auto p-1" id="myBookingsContainer" style="max-height: 380px;">
+                        <!-- يتم ملء القائمة ديناميكياً بواسطة الجافاسكربت -->
+                    </div>
+
+                    <button class="btn btn-light w-100 py-2.5 fw-bold rounded-3 mt-4" data-bs-dismiss="modal">العودة للرئيسية</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. مودال تأكيد إلغاء حجز المقعد (بديل للنوافذ الافتراضية) -->
+    <div class="modal fade" id="confirmCancelModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-4 border-0 shadow">
+                <div class="modal-body text-center p-4">
+                    <div class="rounded-circle bg-danger bg-opacity-10 text-danger d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 60px; height: 60px;">
+                        <i data-lucide="alert-triangle" style="width: 32px; height: 32px;"></i>
+                    </div>
+                    <h4 class="fw-bold text-dark mb-2">إلغاء حجز المقعد؟</h4>
+                    <p class="text-muted small mb-4" id="cancelConfirmationText">هل أنت متأكد من رغبتك في إلغاء هذا الحجز؟ سيتم إتاحة هذا المقعد لمستفيد آخر.</p>
+
+                    <div class="d-flex gap-2">
+                        <button type="button" class="btn btn-danger flex-grow-1 py-2 fw-bold rounded-3" id="btnConfirmDelete">نعم، إلغاء الحجز</button>
+                        <button type="button" class="btn btn-light px-4 py-2 fw-bold rounded-3" data-bs-dismiss="modal">تراجع</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- تذييل الصفحة الراقِ (الفوتر) -->
+    <footer class="bg-white border-top py-4 mt-5">
+        <div class="container">
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+                <div class="d-flex align-items-center gap-2 fw-bold" style="color: #064e3b;">
+                    <i data-lucide="heart-handshake"></i>
+                    <span>منصة يد العون 2026</span>
+                </div>
+                <div class="d-flex gap-3">
+                    <a href="#" class="text-decoration-none text-muted small fw-semibold">سياسة الخصوصية</a>
+                    <a href="#" class="text-decoration-none text-muted small fw-semibold">شروط التطوع</a>
+                    <a href="#" class="text-decoration-none text-muted small fw-semibold">دليل المؤسسات</a>
+                </div>
+                <div class="text-muted small">
+                    جميع الحقوق محفوظة للمملكة الأردنية الهاشمية © يد العون
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ملفات الجافاسكربت اللازمة لبوتستراب والتفاعل الديناميكي للمنصة -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <script>
+        // تعريف متغيرات المودالات للتحكم البرمجي بـ Bootstrap
+        let bookingFormModal, ticketModal, myBookingsModal, confirmCancelModal;
+
+        // مصفوفة الحجوزات مع قراءتها وتخزينها محلياً
+        let myBookings = JSON.parse(localStorage.getItem('user_bookings')) || [];
+
+        // متغيرات الحجز المؤقتة لعمليات الإلغاء والتأكيد
+        let selectedActivity = null;
+        let pendingCancelId = null;
+
+        document.addEventListener("DOMContentLoaded", () => {
+            // تفعيل الأيقونات التفاعلية
+            lucide.createIcons();
+            updateBookingsBadge();
+
+            // ربط مودالات بوتستراب بأكواد الجافاسكربت
+            bookingFormModal = new bootstrap.Modal(document.getElementById('bookingFormModal'));
+            ticketModal = new bootstrap.Modal(document.getElementById('ticketModal'));
+            myBookingsModal = new bootstrap.Modal(document.getElementById('myBookingsModal'));
+            confirmCancelModal = new bootstrap.Modal(document.getElementById('confirmCancelModal'));
+
+            // إسناد منطق الإلغاء لزر الحذف في مودال التأكيد المخصص
+            document.getElementById('btnConfirmDelete').addEventListener('click', executeCancelBooking);
+        });
+
+        // تصفية الفعاليات بناءً على الفلاتر المحددة ومربع البحث
+        function applyFilters() {
+            const govVal = document.getElementById('govFilter').value;
+            const typeVal = document.getElementById('typeFilter').value;
+            const searchVal = document.getElementById('searchKeyword').value.toLowerCase();
+
+            const cards = document.querySelectorAll('.activity-card-wrapper');
+            const noResults = document.getElementById('noResultsMessage');
+            let visibleCount = 0;
+
+            cards.forEach(card => {
+                const cardInner = card.querySelector('.card');
+                const cardGov = card.getAttribute('data-gov');
+                const cardType = card.getAttribute('data-type');
+                const cardTitle = cardInner.querySelector('.activity-title').innerText.toLowerCase();
+                const cardDesc = cardInner.querySelector('.activity-desc').innerText.toLowerCase();
+
+                const matchesGov = (govVal === 'all' || cardGov === govVal);
+                const matchesType = (typeVal === 'all' || cardType === typeVal);
+                const matchesSearch = (cardTitle.includes(searchVal) || cardDesc.includes(searchVal));
+
+                if (matchesGov && matchesType && matchesSearch) {
+                    card.style.display = 'block';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // إظهار رسالة عدم العثور على نتائج إذا كانت النتيجة صفراً
+            noResults.style.display = (visibleCount === 0) ? 'block' : 'none';
+        }
+
+        // تفريغ الفلاتر وتعيين الحالة الافتراضية
+        function resetAllFilters() {
+            document.getElementById('govFilter').value = 'all';
+            document.getElementById('typeFilter').value = 'all';
+            document.getElementById('searchKeyword').value = '';
+            applyFilters();
+        }
+
+        // إطلاق نافذة الحجز المباشر بالبيانات المستهدفة
+        function openBookingForm(name, organizer, location, time) {
+            selectedActivity = { name, organizer, location, time };
+            document.getElementById('userName').value = '';
+            document.getElementById('userPhone').value = '';
+            bookingFormModal.show();
+        }
+
+        // تأكيد وتوليد تذكرة الحجز بشكل تلقائي فوري
+        function handleBookingSubmit(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('userName').value;
+            const phone = document.getElementById('userPhone').value;
+
+            if(!name || !phone) return;
+
+            // كشف تكرار التسجيل لنفس المستفيد لمنع حجز مقاعد زائدة
+            const alreadyBooked = myBookings.some(booking => booking.activityName === selectedActivity.name && booking.phone === phone);
+            if(alreadyBooked) {
+                bookingFormModal.hide();
+                showBookingWarning();
+                return;
+            }
+
+            // توليد رقم تسلسلي عشوائي ومحكم للتذكرة الرقمية
+            const serialNum = 'YD-' + Math.floor(100000 + Math.random() * 900000);
+
+            // إنشاء بنية بيانات الحجز
+            const newBooking = {
+                id: serialNum,
+                activityName: selectedActivity.name,
+                organizer: selectedActivity.organizer,
+                location: selectedActivity.location,
+                time: selectedActivity.time,
+                attendee: name,
+                phone: phone
+            };
+
+            myBookings.push(newBooking);
+            localStorage.setItem('user_bookings', JSON.stringify(myBookings));
+
+            // تحديث مؤشرات الحجوزات النشطة
+            updateBookingsBadge();
+
+            // تحويل الزائر من التسجيل إلى التذكرة مباشرة
+            bookingFormModal.hide();
+            showTicket(newBooking);
+        }
+
+        // إظهار تنبيه تكرار التسجيل المنبثق
+        function showBookingWarning() {
+            const warningAlert = document.getElementById('bookingWarningAlert');
+            warningAlert.classList.remove('d-none');
+            window.scrollTo({ top: warningAlert.offsetTop - 100, behavior: 'smooth' });
+        }
+
+        function hideBookingWarning() {
+            document.getElementById('bookingWarningAlert').classList.add('d-none');
+        }
+
+        // ملء بيانات التذكرة الإلكترونية وعرضها للطباعة
+        function showTicket(booking) {
+            document.getElementById('ticketSerial').innerText = booking.id;
+            document.getElementById('ticketActivityName').innerText = booking.activityName;
+            document.getElementById('ticketAttendee').innerText = booking.attendee;
+            document.getElementById('ticketPhone').innerText = booking.phone;
+            document.getElementById('ticketLocation').innerText = booking.location;
+            document.getElementById('ticketTime').innerText = booking.time;
+
+            ticketModal.show();
+            lucide.createIcons();
+        }
+
+        // تعبئة لوحة "حجوزاتي" بأحدث تذاكر مسجلة ومحفوظة
+        function openMyBookingsModal() {
+            const container = document.getElementById('myBookingsContainer');
+            container.innerHTML = '';
+
+            if (myBookings.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-5 text-muted">
+                        <i data-lucide="ticket-x" class="text-secondary mb-3" style="width: 48px; height: 48px;"></i>
+                        <p class="fw-bold text-dark mb-1">لا توجد لديك حجوزات نشطة حالياً</p>
+                        <p class="small">تصفح قائمة الأنشطة الترفيهية واحجز مقعدك المجاني بلمسة زر واحدة!</p>
+                    </div>
+                `;
+            } else {
+                myBookings.forEach(booking => {
+                    const card = document.createElement('div');
+                    card.className = 'p-3 border rounded-3 bg-light d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-3';
+                    card.innerHTML = `
+                        <div class="text-start">
+                            <h4 class="h6 fw-bold mb-2" style="color: #064e3b;">${booking.activityName}</h4>
+                            <div class="d-flex flex-wrap gap-3 text-muted small">
+                                <span class="d-flex align-items-center gap-1">
+                                    <i data-lucide="calendar" style="width: 14px;"></i>
+                                    <span>${booking.time}</span>
+                                </span>
+                                <span class="d-flex align-items-center gap-1">
+                                    <i data-lucide="ticket" style="width: 14px;"></i>
+                                    <span>تذكرة رقم: ${booking.id}</span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="d-flex gap-2 justify-content-end">
+                            <button class="btn btn-sm btn-light border px-3 py-1.5 fw-bold rounded-2 d-flex align-items-center gap-1" style="color: #064e3b;" onclick="viewSingleSavedTicket('${booking.id}')">
+                                <i data-lucide="eye" style="width: 14px;"></i>
+                                <span>عرض</span>
+                            </button>
+                            <button class="btn btn-sm btn-danger px-3 py-1.5 fw-bold rounded-2 d-flex align-items-center gap-1" style="background-color: #fee2e2; color: #ef4444; border: none;" onclick="confirmCancelBooking('${booking.id}')">
+                                <i data-lucide="trash-2" style="width: 14px;"></i>
+                                <span>إلغاء الحجز</span>
+                            </button>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                });
+            }
+
+            myBookingsModal.show();
+            lucide.createIcons();
+        }
+
+        // عرض تفاصيل تذكرة مفردة من لوحة حجوزاتي
+        function viewSingleSavedTicket(ticketId) {
+            const booking = myBookings.find(b => b.id === ticketId);
+            if(booking) {
+                myBookingsModal.hide();
+                setTimeout(() => showTicket(booking), 300);
+            }
+        }
+
+        // فتح مودال التأكيد المخصص قبل المباشرة بإلغاء الحجز
+        function confirmCancelBooking(ticketId) {
+            const booking = myBookings.find(b => b.id === ticketId);
+            if (!booking) return;
+
+            pendingCancelId = ticketId;
+            document.getElementById('cancelConfirmationText').innerText = `هل أنت متأكد من رغبتك في إلغاء حجزك لفعالية "${booking.activityName}"؟ سيتم توفير هذا المقعد لمستفيدين آخرين فوراً.`;
+
+            myBookingsModal.hide();
+            setTimeout(() => confirmCancelModal.show(), 300);
+        }
+
+        // إلغاء المقعد ومسحه من قاعدة البيانات المحلية وإتاحة الفرصة للآخرين
+        function executeCancelBooking() {
+            if (!pendingCancelId) return;
+
+            myBookings = myBookings.filter(b => b.id !== pendingCancelId);
+            localStorage.setItem('user_bookings', JSON.stringify(myBookings));
+
+            updateBookingsBadge();
+            confirmCancelModal.hide();
+
+            setTimeout(() => openMyBookingsModal(), 300);
+            pendingCancelId = null;
+        }
+
+        // تحديث مؤشرات التذاكر النشطة على الأزرار والشارات
+        function updateBookingsBadge() {
+            const btnBadge = document.getElementById('btnBadge');
+            const count = myBookings.length;
+
+            if (count > 0) {
+                btnBadge.style.display = 'inline-block';
+                btnBadge.innerText = count;
+            } else {
+                btnBadge.style.display = 'none';
+            }
+        }
+
+        // طباعة التذكرة الرقمية الفردية أو استخراجها كملف PDF
+        function printTicket() {
+            window.print();
+        }
+    </script>
+</body>
+</html>

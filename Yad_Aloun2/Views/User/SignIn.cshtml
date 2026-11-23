@@ -1,0 +1,49 @@
+﻿@model Yad_Aloun2.Models.User
+
+@{
+    ViewData["Title"] = "تسجيل الدخول";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white text-center">
+                    <h4>تسجيل الدخول للحساب السابق</h4>
+                </div>
+                <div class="card-body">
+
+                    <form asp-action="SignIn" method="post">
+                        @Html.AntiForgeryToken()
+
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                        <div class="form-group mb-3">
+                            <label for="email" class="form-label fw-bold">البريد الإلكتروني</label>
+                            <input type="email" id="email" name="email" class="form-control" placeholder="example@mail.com" required />
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label for="phone" class="form-label fw-bold">رقم الهاتف المسجل</label>
+                            <input type="tel" id="phone" name="phone" class="form-control" placeholder="05xxxxxxxx" required />
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-block">دخول</button>
+                        </div>
+                    </form>
+
+                </div>
+                <div class="card-footer text-center text-muted">
+                    ليس لديك حساب؟ <a asp-action="Login" asp-controller="User" class="text-decoration-none">سجل حساباً جديداً من هنا</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,72 @@
+﻿@model Yad_Aloun2.Models.ServiceItem
+
+@{
+    ViewData["Title"] = "تعديل الخدمة";
+    Layout = "_Layout";
+}
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4 class="fw-bold">تعديل الخدمة</h4>
+        <a asp-action="Update" class="btn btn-secondary rounded-pill px-4">
+            رجوع
+        </a>
+    </div>
+
+    <div class="card shadow-sm rounded-4 p-4">
+
+        <form asp-action="EditService" method="post">
+
+            <!-- مهم: ID مخفي -->
+            <input type="hidden" asp-for=" CompanyId" />
+
+            <!-- اسم الخدمة -->
+            <div class="mb-3">
+                <label class="form-label fw-bold">اسم الخدمة</label>
+                <input asp-for="Name" class="form-control" placeholder="ادخل اسم الخدمة" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <!-- التصنيف -->
+            <div class="mb-3">
+                <label class="form-label fw-bold">التصنيف</label>
+                <input asp-for="Category" class="form-control" placeholder="مثال: خدمات صحية" />
+                <span asp-validation-for="Category" class="text-danger"></span>
+            </div>
+
+            <!-- عدد الاستخدام -->
+            <div class="mb-3">
+                <label class="form-label fw-bold">عدد مرات الاستخدام</label>
+                <input asp-for="Usage" type="number" class="form-control" min="0" />
+            </div>
+
+            <!-- الحالة -->
+            <div class="form-check mb-3">
+                <input asp-for="Available" class="form-check-input" />
+                <label class="form-check-label fw-bold">
+                    الخدمة متوفرة
+                </label>
+            </div>
+
+            <!-- أزرار -->
+            <div class="d-flex gap-2 mt-3">
+
+                <button type="submit" class="btn btn-success px-4 rounded-pill">
+                    حفظ التعديلات
+                </button>
+
+                <a asp-action="Update" class="btn btn-outline-secondary px-4 rounded-pill">
+                    إلغاء
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

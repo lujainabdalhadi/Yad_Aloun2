@@ -1,0 +1,73 @@
+﻿@model IEnumerable<Yad_Aloun2.Models.Company_Files>
+@{
+    ViewData["Title"] = "  ملفات الشركه ";
+}
+@{
+    Layout = "_Layout";
+}
+
+
+<div class="container mt-5">
+
+    <!-- Search + Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <input type="text" class="form-control w-25 rounded-pill"
+               placeholder="بحث في البيانات...">
+
+        <div class="text-end">
+            <h5 class="fw-bold">ملفات الشركات</h5>
+            <small class="text-muted">طلبات التوظيف والشراكات التجارية</small>
+        </div>
+    </div>
+
+    <!-- Cards -->
+    <div class="row g-4">
+
+@foreach (var item in Model)
+{
+            <div class="col-md-4">
+
+                <div class="card company-card p-3 text-center">
+
+                    <!-- Status -->
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+
+                        <span class="badge
+                                    @(item.Status == "نشط" ? "bg-success-subtle text-success" : "bg-warning-subtle text-dark")">
+                            @item.Status
+                        </span>
+
+                        <div class="icon-box">
+                            <i class="bi bi-building"></i>
+                        </div>
+                    </div>
+
+                    <!-- Name -->
+                    <h6 class="fw-bold mt-2">@item.CompanyName</h6>
+
+                    <!-- Info -->
+                    <small class="text-muted d-block">
+                        @item.Specialty - سجل: @item.RegistrationNumber
+                    </small>
+
+                    <!-- Buttons -->
+                    <div class="d-flex justify-content-center align-items-center gap-2 mt-3">
+
+                        <a href="#" class="btn btn-light rounded-circle">
+                            <i class="bi bi-box-arrow-up-right"></i>
+                        </a>
+
+                        <a asp-action="Details" asp-route-id="@item.Company_Files_Id"
+                           class="btn btn-success rounded-pill px-4">
+                            إدارة الملف
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+}
+
+

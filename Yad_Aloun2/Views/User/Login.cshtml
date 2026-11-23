@@ -1,0 +1,261 @@
+﻿@model Yad_Aloun2.Models.User
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "بوابة حساب المستخدم";
+}
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بوابة حساب المستخدم - يد العون</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --bs-success: #064e3b;
+            --bs-success-rgb: 6,78,59;
+        }
+    </style>
+</head>
+
+<body class="bg-light">
+
+    <div class="container py-5">
+
+        <div class="row justify-content-center">
+
+            <div class="col-lg-10" id="main-container-box">
+
+                <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+
+                    <div class="bg-success text-white text-center py-4" style="background-color: #064e3b !important;">
+
+                        <h2 class="fw-bold" id="main-header-title">
+                            تسجيل الدخول للحساب
+                        </h2>
+
+                        <p class="mb-0" id="main-header-subtitle">
+                            مرحباً بك مجدداً في منصة يد العون، يرجى إدخال بياناتك للدخول
+                        </p>
+
+                    </div>
+
+                    <div class="card-body p-5">
+
+                        <div id="login-interface" class="d-block">
+                            <form asp-action="SignIn" asp-controller="User" method="post">
+                                @Html.AntiForgeryToken()
+
+                                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                                <div class="row justify-content-center g-4">
+                                    <div class="col-md-8">
+                                        <label for="email" class="form-label fw-bold">البريد الإلكتروني</label>
+                                        <input type="email" id="email" name="email" class="form-control form-control-lg rounded-3" placeholder="example@mail.com" required />
+                                    </div>
+
+                                    <div class="col-md-8">
+                                        <label for="phone" class="form-label fw-bold">رقم الهاتف المسجل</label>
+                                        <input type="tel" id="phone" name="phone" class="form-control form-control-lg rounded-3" placeholder="05xxxxxxxx" required />
+                                    </div>
+                                </div>
+
+                                <div class="text-center mt-5">
+                                    <button type="submit" style="background-color: #064e3b !important; color: white; width: 100%; padding: 12px; font-weight: bold; border: none; border-radius: 50px; font-size: 1.1rem; cursor: pointer;">
+                                        تسجيل الدخول
+                                    </button>
+                                    <div class="mt-4">
+                                        <p class="text-muted mb-0">ليس لديك حساب؟</p>
+                                        <button type="button"
+                                                onclick="toggleMainViews('register')"
+                                                class="btn btn-link fw-bold text-decoration-none mt-1"
+                                                style="display: block; width: 100%; border: 2px solid #064e3b !important; color: #064e3b !important; padding: 12px; font-weight: bold; text-decoration: none; border-radius: 50px; font-size: 1.1rem; margin-top: 10px;">
+                                            <i class="fas fa-user-plus me-1"></i> إنشاء حساب جديد
+                                        </button>
+                                    </div>
+                                </div>
+
+
+
+                            </form>
+                        </div>
+
+
+                        <div id="register-interface" class="d-none">
+
+                            <div class="row justify-content-center mb-5">
+                                <div class="col-md-8">
+                                    <div class="d-flex justify-content-between text-center">
+                                        <div class="flex-fill">
+                                            <div id="num1" class="bg-success text-white rounded-circle d-flex align-items-center justify-content-center mx-auto mb-2" style="width:50px;height:50px;">1</div>
+                                            <span class="fw-bold text-success">الحساب</span>
+                                        </div>
+                                        <div class="flex-fill">
+                                            <div id="num2" class="bg-secondary text-white rounded-circle d-flex align-items-center justify-content-center mx-auto mb-2" style="width:50px;height:50px;">2</div>
+                                            <span class="fw-bold text-muted">البيانات الشخصية</span>
+                                        </div>
+                                        <div class="flex-fill">
+                                            <div id="num3" class="bg-secondary text-white rounded-circle d-flex align-items-center justify-content-center mx-auto mb-2" style="width:50px;height:50px;">3</div>
+                                            <span class="fw-bold text-muted">معلومات إضافية</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <form asp-action="Login" asp-controller="User" method="post">
+                                @Html.AntiForgeryToken()
+
+                                <div asp-validation-summary="All" class="alert alert-danger"></div>
+
+                                <div id="s1" class="d-block">
+                                    <div class="row g-4">
+                                        <div class="col-md-6">
+                                            <label class="form-label fw-bold">البريد الإلكتروني</label>
+                                            <input asp-for="Email" type="email" class="form-control form-control-lg rounded-3" placeholder="example@gmail.com" />
+                                            <span asp-validation-for="Email" class="text-danger"></span>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label class="form-label fw-bold">رقم الجوال</label>
+                                            <input asp-for="Phone" class="form-control form-control-lg rounded-3" placeholder="07XXXXXXXX" />
+                                            <span asp-validation-for="Phone" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="text-center mt-5">
+                                        <button type="button" class="btn btn-success btn-lg px-5 py-3 rounded-pill shadow" onclick="nav(2)">التالي</button>
+                                        <div class="mt-4">
+                                            <p class="text-muted mb-0">لديك حساب بالفعل؟</p>
+                                            <button type="button" onclick="toggleMainViews('login')" class="btn btn-link text-success fw-bold text-decoration-none mt-1">
+                                                <i class="fas fa-sign-in-alt me-1"></i> تسجيل الدخول من هنا
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="s2" class="d-none">
+                                    <div class="row g-4">
+                                        <div class="col-md-6">
+                                            <label class="form-label fw-bold">الاسم الكامل</label>
+                                            <input asp-for="FullName" class="form-control form-control-lg rounded-3" placeholder="أدخل الاسم الكامل" />
+                                            <span asp-validation-for="FullName" class="text-danger"></span>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label class="form-label fw-bold">العمر</label>
+                                            <input asp-for="Age" type="number" class="form-control form-control-lg rounded-3" placeholder="أدخل العمر" />
+                                            <span asp-validation-for="Age" class="text-danger"></span>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label class="form-label fw-bold">رقم هاتف العائلة</label>
+                                            <input asp-for="FamilyPhoneNumber" class="form-control form-control-lg rounded-3" placeholder="07XXXXXXXX" />
+                                            <span asp-validation-for="FamilyPhoneNumber" class="text-danger"></span>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label class="form-label fw-bold">الموقع / العنوان</label>
+                                            <input asp-for="location" class="form-control form-control-lg rounded-3" placeholder="المدينة - الحي" />
+                                            <span asp-validation-for="location" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="text-center mt-5">
+                                        <button type="button" class="btn btn-outline-secondary btn-lg px-5 rounded-pill me-2" onclick="nav(1)">رجوع</button>
+                                        <button type="button" class="btn btn-success btn-lg px-5 rounded-pill shadow" onclick="nav(3)">التالي</button>
+                                    </div>
+                                </div>
+
+                                <div id="s3" class="d-none">
+                                    <div class="row g-4">
+                                        <div class="col-12">
+                                            <label class="form-label fw-bold">نوع الإعاقة</label>
+                                            <select asp-for="DisabilityType" class="form-select form-select-lg rounded-3">
+                                                <option value="">اختر نوع الإعاقة</option>
+                                                <option value="حركية">حركية</option>
+                                                <option value="بصرية">بصرية</option>
+                                                <option value="سمعية">سمعية</option>
+                                                <option value="ذهنية">ذهنية</option>
+                                            </select>
+                                            <span asp-validation-for="DisabilityType" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="text-center mt-5">
+                                        <button type="button" class="btn btn-outline-secondary btn-lg px-5 rounded-pill me-2" onclick="nav(2)">رجوع</button>
+                                        <button type="submit" class="btn btn-success btn-lg px-5 py-3 rounded-pill shadow">إنشاء الحساب</button>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        function toggleMainViews(view) {
+            const loginInterface = document.getElementById('login-interface');
+            const registerInterface = document.getElementById('register-interface');
+            const headerTitle = document.getElementById('main-header-title');
+            const headerSubtitle = document.getElementById('main-header-subtitle');
+            const containerBox = document.getElementById('main-container-box');
+
+            if (view === 'register') {
+                loginInterface.classList.replace('d-block', 'd-none');
+                registerInterface.classList.replace('d-none', 'd-block');
+                headerTitle.innerText = "إنشاء حساب مستخدم";
+                headerSubtitle.innerText = "يرجى تعبئة البيانات المطلوبة للاستفادة من خدمات يد العون";
+                containerBox.classList.replace('col-lg-6', 'col-lg-10'); // تكبير العرض ليتناسب مع الفورم الطويل
+                nav(1); // إرجاع فورم الحساب للخطوة الأولى تلقائياً عند الدخول
+            } else {
+                registerInterface.classList.replace('d-block', 'd-none');
+                loginInterface.classList.replace('d-none', 'd-block');
+                headerTitle.innerText = "تسجيل الدخول للحساب السابق";
+                headerSubtitle.innerText = "مرحباً بك مجدداً في منصة يد العون، يرجى إدخال بياناتك للدخول";
+                containerBox.classList.replace('col-lg-10', 'col-lg-6'); // تصغير العرض ليتناسب مع تسجيل الدخول
+            }
+        }
+
+        function nav(step) {
+            document.getElementById('s1').classList.add('d-none');
+            document.getElementById('s2').classList.add('d-none');
+            document.getElementById('s3').classList.add('d-none');
+
+            document.getElementById('s' + step).classList.remove('d-none');
+
+            for (let i = 1; i <= 3; i++) {
+                let num = document.getElementById('num' + i);
+                num.classList.remove('bg-success', 'bg-secondary', 'bg-info');
+
+                if (i < step) {
+                    num.classList.add('bg-info');
+                } else if (i === step) {
+                    num.classList.add('bg-success');
+                } else {
+                    num.classList.add('bg-secondary');
+                }
+            }
+        }
+
+        // تهيئة الصفحة لتبدأ بتصميم مناسب لحجم تسجيل الدخول الصغير أولاً
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById('main-container-box').classList.add('col-lg-6');
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

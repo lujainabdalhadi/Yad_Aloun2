@@ -1,0 +1,46 @@
+﻿@model Yad_Aloun2.Models.HomeProject
+
+@{
+    ViewData["Title"] = "تعديل المشروع";
+    Layout = "_Layout";
+}
+
+<div class="container mt-5">
+
+    <div class="card shadow-sm rounded-4 p-4">
+
+        <h4 class="text-success mb-3">تعديل المشروع</h4>
+
+        <form asp-action="EditProject" method="post" enctype="multipart/form-data">
+
+            <!-- مهم جدًا -->
+            <input type="hidden" asp-for="Id" />
+
+            <input asp-for="ProjectName" class="form-control mb-2" placeholder="اسم المشروع" />
+
+            <input asp-for="OwnerName" class="form-control mb-2" placeholder="اسم المالك" />
+
+            <input asp-for="ContactNumber" class="form-control mb-2" placeholder="رقم الهاتف" />
+
+            <input asp-for="Price" class="form-control mb-2" placeholder="السعر" />
+
+            <input asp-for="Category" class="form-control mb-2" placeholder="التصنيف" />
+
+            <textarea asp-for="Description" class="form-control mb-2" placeholder="الوصف"></textarea>
+
+            <!-- صورة جديدة (اختياري) -->
+            <input type="file" name="imageFile" class="form-control mb-3" />
+
+            <button class="btn btn-success w-100">
+                حفظ التعديلات
+            </button>
+
+            <a href="/services/HomeProjects" class="btn btn-light w-100 mt-2">
+                رجوع
+            </a>
+
+        </form>
+
+    </div>
+
+</div>

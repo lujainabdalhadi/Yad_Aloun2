@@ -1,0 +1,89 @@
+﻿@model IEnumerable<Yad_Aloun2.Models.AssistanceRequest>
+
+<div class="container mt-5" dir="rtl">
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <h3 class="fw-bold text-success mb-4">طلباتي</h3>
+
+    <table class="table table-hover align-middle">
+        <thead class="text-white" style="background:#064e3b;">
+            <tr>
+                <th>نوع المساعدة</th>
+                <th>عنوان الطلب</th>
+                <th>التاريخ</th>
+                <th>الحالة</th>
+                <th>ملاحظات الشركة</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Category</td>
+                        <td>@item.Title</td>
+                        <td>@item.CreatedAt.ToString("yyyy/MM/dd")</td>
+                        <td>
+                            @if (item.Status == "Pending")
+                            {
+                                <span class="badge bg-warning text-dark">قيد الانتظار</span>
+                            }
+                            else if (item.Status == "Complete")
+                            {
+                                <span class="badge bg-success">مقبول</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-secondary">@item.Status</span>
+                            }
+                        </td>
+                        <td>
+                            @if (!string.IsNullOrEmpty(item.AdminNotes))
+                            {
+                                <div class="alert alert-info p-2 mb-0">@item.AdminNotes</div>
+                            }
+                            else
+                            {
+                                <span class="text-muted">لا توجد ملاحظات</span>
+                            }
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="5" class="text-center text-muted p-4">لا توجد طلبات</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @if (ViewBag.Inquiries != null)
+    {
+        <div class="mt-5">
+            <h4 class="fw-bold text-success">ردود الإدارة على استفساراتك</h4>
+            @foreach (var item in ViewBag.Inquiries)
+            {
+                if (!string.IsNullOrEmpty(item.AdminReply))
+                {
+                    <div class="alert alert-success mt-3">
+                        <strong>استفسارك:</strong>
+                        <p class="mb-2">@item.MessageContent</p>
+                        <hr />
+                        <strong>رد الإدارة:</strong>
+                        <p class="mb-0">@item.AdminReply</p>
+                    </div>
+                }
+            }
+        </div>
+    }
+</div>

@@ -1,0 +1,84 @@
+﻿@model Yad_Aloun2.Models.Center
+
+@{
+    ViewData["Title"] = "حذف المركز";
+    Layout = "_Layout";
+}
+
+<div class="container mt-5">
+
+    <div class="card shadow-sm rounded-4 p-4">
+
+        <!-- Title -->
+        <h4 class="fw-bold mb-4 text-center">
+            حذف بيانات المركز
+        </h4>
+
+        <div class="alert alert-danger text-center fs-5">
+            هل أنت متأكد من حذف هذا المركز؟
+        </div>
+
+        <!-- Form -->
+        <form asp-action="Delete" method="post">
+
+            @Html.AntiForgeryToken()
+
+            <input type="hidden" asp-for="Center_Id" />
+
+            <div class="row">
+
+                <!-- Center Name -->
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-bold">اسم المركز</label>
+                    <input asp-for="CenterName"
+                           class="form-control rounded-pill"
+                           readonly />
+                </div>
+
+                <!-- Category -->
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-bold">التخصص</label>
+                    <input asp-for="Category"
+                           class="form-control rounded-pill"
+                           readonly />
+                </div>
+
+                <!-- Region -->
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-bold">المنطقة</label>
+                    <input asp-for="Region"
+                           class="form-control rounded-pill"
+                           readonly />
+                </div>
+
+                <!-- Status -->
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-bold">الحالة</label>
+                    <input asp-for="Status"
+                           class="form-control rounded-pill"
+                           readonly />
+                </div>
+
+            </div>
+
+            <!-- Buttons -->
+            <div class="text-center mt-4">
+
+                <button type="submit"
+                        class="btn btn-danger px-4 rounded-pill">
+                    حذف
+                </button>
+
+                <a asp-action="CentersAndServicesManagement"
+                   asp-controller="Admin"
+                   class="btn btn-secondary px-4 rounded-pill ms-2">
+                    رجوع
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>

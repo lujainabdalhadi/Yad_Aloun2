@@ -1,0 +1,88 @@
+﻿@model Yad_Aloun2.Models.Center
+
+<div class="container mt-4">
+
+    <div class="card shadow-sm border-0 rounded-4 p-5">
+
+        <!-- العنوان -->
+        <h2 class="text-center fw-bold mb-5">
+            إضافة مركز جديد
+        </h2>
+
+        <form asp-action="Create" method="post">
+
+            <div class="row g-4">
+
+                <!-- اسم المركز -->
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">
+                        اسم المركز
+                    </label>
+
+                    <input asp-for="CenterName"
+                           class="form-control rounded-pill p-3" />
+                </div>
+
+                <!-- التخصص -->
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">
+                        التخصص
+                    </label>
+
+                    <input asp-for="Category"
+                           class="form-control rounded-pill p-3" />
+                </div>
+
+                <!-- المنطقة -->
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">
+                        المنطقة
+                    </label>
+
+                    <input asp-for="Region"
+                           class="form-control rounded-pill p-3" />
+                </div>
+
+                <!-- الحالة -->
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">
+                        الحالة
+                    </label>
+
+                    <select asp-for="Status"
+                            class="form-select rounded-pill p-3">
+
+                        <option value="نشط">نشط</option>
+                        <option value="غير نشط">غير نشط</option>
+
+                    </select>
+                </div>
+
+                
+
+            </div>
+
+            <!-- الأزرار -->
+            <div class="text-center mt-5">
+
+                <a asp-action="CentersAndServicesManagement"
+                   class="btn btn-secondary rounded-pill px-5 py-2">
+
+                    رجوع
+
+                </a>
+
+                <button type="submit"
+                        class="btn btn-success rounded-pill px-5 py-2">
+
+                    حفظ المركز
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>

@@ -1,0 +1,315 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>يد العون - الدعم الفني</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <link rel="stylesheet" href="~/css/support-style.css">
+    <style>
+        :root {
+            --primary-green: #064e3b !important;
+            --light-green: #ecfdf5;
+            --accent-green: #10b981;
+            --text-dark: #1f2937;
+            --text-gray: #6b7280;
+            --white: #ffffff;
+        }
+
+        body.support-page {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #fcfcfc;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .support-header {
+            background-color: var(--primary-green);
+            color: var(--white);
+            padding: 60px 20px 100px 20px;
+            text-align: center;
+            border-radius: 0 0 50px 50px;
+        }
+
+        .header-content h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .header-content p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Search Bar */
+        .search-section {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .search-bar-container {
+            background-color: var(--light-green); /* الخلفية الأخضر فاتح المطلوبة */
+            padding: 8px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            max-width: 600px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+            .search-bar-container i {
+                color: var(--primary-green);
+                margin: 0 15px;
+            }
+
+            .search-bar-container input {
+                flex: 1;
+                border: none;
+                background: transparent;
+                padding: 12px;
+                outline: none;
+                font-size: 1rem;
+            }
+
+        .btn-search-main {
+            background-color: var(--primary-green);
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* Main Content Layout */
+        .main-content {
+            max-width: 1100px;
+            margin: -50px auto 50px; /* لرفع المحتوى قليلاً فوق الهيدر */
+            padding: 0 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--text-dark);
+        }
+
+        /* Contact Grid */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 60px;
+        }
+
+        .contact-card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 25px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 1px solid #eee;
+        }
+
+        .icon-circle {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .bg-blue {
+            background-color: #3b82f6;
+        }
+
+        .bg-purple {
+            background-color: #8b5cf6;
+        }
+
+        .bg-green {
+            background-color: var(--accent-green);
+        }
+
+        /* Inquiry Form (إصلاح شكل حقل الاسم والبريد) */
+        .inquiry-form-wrapper {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+            border: 1px solid #f0f0f0;
+        }
+
+        .form-title {
+            margin-bottom: 30px;
+            font-size: 1.5rem;
+            border-right: 5px solid var(--accent-green);
+            padding-right: 15px;
+        }
+
+        .input-group-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .field-container {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+            .field-container label {
+                font-weight: 600;
+                color: var(--text-dark);
+                font-size: 0.9rem;
+            }
+
+            .field-container input, .field-container textarea {
+                padding: 15px;
+                border: 1.5px solid #e5e7eb;
+                border-radius: 12px;
+                background-color: #f9fafb;
+                outline: none;
+                transition: 0.3s;
+            }
+
+                .field-container input:focus, .field-container textarea:focus {
+                    border-color: var(--accent-green);
+                    background-color: var(--white);
+                    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
+                }
+
+        .form-footer {
+            text-align: left;
+            margin-top: 10px;
+        }
+
+        .btn-send-now {
+            background-color: var(--primary-green);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+            .btn-send-now:hover {
+                background-color: var(--accent-green);
+                transform: translateY(-2px);
+            }
+
+        /* Footer */
+        .site-footer {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-gray);
+            border-top: 1px solid #eee;
+            margin-top: 40px;
+        }
+
+        /* Responsive */
+        media (max-width: 768px) {
+            .input-group-row {
+                grid-template-columns: 1fr;
+            }
+
+            .header-content h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body class="support-page">
+
+    <header class="support-header">
+        <div class="header-content">
+            <h1>كيف يمكننا مساعدتك؟</h1>
+            <p>نحن هنا للإجابة على استفساراتك ودعمك في كل خطوة.</p>
+
+            <div class="search-section">
+                <div class="search-bar-container">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="ابحث عن حل لمشكلتك...">
+                    <button type="button" class="btn-search-main">بحث</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <h2 class="section-title" style="color: white;" ;>وسائل التواصل المباشر</h2>
+        <div class="contact-grid">
+            <div class="contact-card">
+                <div class="icon-circle bg-blue"><i class="fas fa-comment-dots"></i></div>
+                <h3>الدردشة الفورية</h3>
+                <p>تحدث مع المساعد الذكي الآن</p>
+            </div>
+            <div class="contact-card">
+                <div class="icon-circle bg-purple"><i class="fas fa-envelope"></i></div>
+                <h3>البريد الإلكتروني</h3>
+                <p>support@aydaoun.sa</p>
+            </div>
+            <div class="contact-card">
+                <div class="icon-circle bg-green"><i class="fas fa-phone-alt"></i></div>
+                <h3>الاتصال الهاتفي</h3>
+                <p>920001234 (مجاني)</p>
+            </div>
+        </div>
+
+        <div class="inquiry-form-wrapper">
+            <h2 class="form-title">إرسال استفسار سريع</h2>
+            <form asp-action="SendInquiry"
+                  asp-controller="Services"
+                  method="post"
+                  class="inquiry-form">
+                <div class="input-group-row">
+                    <div class="field-container">
+                        <label>الاسم الكامل</label>
+                        <input type="text" name="SenderName" placeholder="أدخل اسمك هنا" required>
+                    </div>
+                    <div class="field-container">
+                        <label>البريد الإلكتروني</label>
+
+                        <input type="email" name="SenderEmail" placeholder="example@mail.com" required>
+                    </div>
+                </div>
+
+                <div class="field-container">
+                    <label>رسالتك</label>
+                    <textarea name="MessageContent" rows="5" placeholder="كيف يمكننا مساعدتك اليوم؟" required></textarea>
+                </div>
+
+                <div class="form-footer">
+                    <button type="submit" class="btn-send-now">
+                        إرسال الاستفسار <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <p>جميع الحقوق محفوظة &copy; 2026 - منصة يد العون</p>
+    </footer>
+
+</body>
+</html>

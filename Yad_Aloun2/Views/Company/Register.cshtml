@@ -1,0 +1,112 @@
+﻿@model Yad_Aloun2.Models.Donor_Company
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    bool hasLoginErrors = TempData["CompanyLoginError"] != null;
+    var currentView = hasLoginErrors ? "login" : (Context.Request.Query["view"].ToString() == "register" ? "register" : "login");
+    ViewData["Title"] = currentView == "register" ? "تسجيل شركة مانحة" : "تسجيل دخول شركة مانحة";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="@(currentView == "register" ? "col-lg-10" : "col-lg-6 col-md-8")">
+            <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+                <div class="text-white text-center py-4" style="background-color:#064e3b;">
+                    @if (currentView == "login")
+                    {
+                        <h2 class="fw-bold text-white">تسجيل دخول شركة مانحة</h2>
+                        <p class="mb-0 text-white-50">مرحباً بك مجدداً في منصة يد العون، سجل دخولك ببيانات الشركة</p>
+                    }
+                    else
+                    {
+                        <h2 class="fw-bold text-white">تسجيل شركة مانحة جديدة</h2>
+                        <p class="mb-0 text-white-50">يرجى تعبئة بيانات الشركة للانضمام إلى منصة يد العون</p>
+                    }
+                </div>
+
+                <div class="card-body p-5">
+                    @if (currentView == "login")
+                    {
+                        <form asp-action="LoginCompany" asp-controller="Company" method="post">
+                            @Html.AntiForgeryToken()
+                            @if (TempData["CompanyLoginError"] != null)
+                            {
+                                <div class="alert alert-danger mb-4 rounded-3 text-center fw-bold shadow-sm">
+                                    <i class="fas fa-exclamation-circle me-2"></i> @TempData["CompanyLoginError"]
+                                </div>
+                            }
+                            <div class="row g-4">
+                                <div class="col-12">
+                                    <label class="form-label fw-bold">البريد الإلكتروني للشركة</label>
+                                    <input type="email" name="Email" required class="form-control form-control-lg rounded-3" placeholder="company@example.com" />
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label fw-bold">رقم هاتف الشركة المسجل</label>
+                                    <input type="tel" name="Phone" required class="form-control form-control-lg rounded-3" placeholder="05xxxxxxxx" />
+                                </div>
+                            </div>
+
+                            <div class="text-center mt-5">
+                                <button type="submit" style="background-color: #064e3b !important; color: white; width: 100%; padding: 12px; font-weight: bold; border: none; border-radius: 50px; font-size: 1.1rem; cursor: pointer;">
+                                    تسجيل الدخول
+                                </button>
+
+                                <div class="mt-4">
+                                    <p class="text-muted mb-0">ليس لديك حساب للشركة بعد؟</p>
+                                    <a href="?view=register" style="display: block; width: 100%; border: 2px solid #064e3b !important; color: #064e3b !important; padding: 12px; font-weight: bold; text-decoration: none; border-radius: 50px; font-size: 1.1rem; margin-top: 10px;">
+                                        إنشاء حساب جديد
+                                    </a>
+                                </div>
+                            </div>
+                        </form>
+                    }
+                    else
+                    {
+                        <form asp-action="Register" asp-controller="Company" method="post">
+                            @Html.AntiForgeryToken()
+                            <div class="row g-4">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">اسم الشركة</label>
+                                    <input asp-for="CompanyName" class="form-control form-control-lg rounded-3" placeholder="أدخل اسم الشركة" required />
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">رقم الهاتف</label>
+                                    <input asp-for="Phone" class="form-control form-control-lg rounded-3" placeholder="05XXXXXXXX" required />
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">البريد الإلكتروني</label>
+                                    <input asp-for="Email" class="form-control form-control-lg rounded-3" placeholder="company@example.com" required />
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">نوع الخدمات المقدمة</label>
+                                    <select name="SelectedServices" class="form-select form-select-lg rounded-3" required>
+                                        <option value="">اختر نوع الخدمة</option>
+                                        <option value="3">خدمات طبية</option>
+                                        <option value="2">خدمات تعليمية</option>
+                                        <option value="1">خدمات مالية</option>
+                                    </select>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label fw-bold">المقر الرئيسي</label>
+                                    <input asp-for="Company_Address" class="form-control form-control-lg rounded-3" placeholder="المدينة - الشارع" required />
+                                </div>
+                            </div>
+
+                            <div class="text-center mt-4">
+                                <button type="submit" style="background-color: #064e3b !important; color: white; width: 100%; padding: 12px; font-weight: bold; border: none; border-radius: 50px; font-size: 1.1rem; cursor: pointer;">
+                                    تسجيل الشركة
+                                </button>
+                                <div class="mt-4">
+                                    <p class="text-muted mb-0">هل تم تسجيل شركتك مسبقاً؟</p>
+                                    <a href="?view=login" style="display: block; width: 100%; border: 2px solid #064e3b !important; color: #064e3b !important; padding: 12px; font-weight: bold; text-decoration: none; border-radius: 50px; font-size: 1.1rem; margin-top: 10px;">
+                                        تسجيل دخول الشركات المسجلة
+                                    </a>
+                                </div>
+                            </div>
+                        </form>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

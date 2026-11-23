@@ -1,0 +1,1132 @@
+﻿@using Microsoft.Extensions.Localization;
+@using Yad_Aloun2
+@inject IStringLocalizer<SharedResource> Localizer;
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<!-- Navbar Start -->
+<!-- Bootstrap CSS + Icons -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+
+
+<nav class="navbar navbar-expand-lg bg-custom-green px-4" dir="rtl">
+    <i class="fa"></i>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-between" id="navbarMenu">
+
+        <div class="d-flex align-items-center">
+
+            <a href="index.html" class="navbar-brand d-flex align-items-center me-3">
+                <i class="fa fa-hand-holding-heart text-white"   style="font-size:40px; margin-left:15px;"></i></i>
+                
+                <span>يد العون</span>
+            </a>
+
+            <div class="navbar-nav">
+                <a href="index.html" class="nav-link">الرئيسية</a>
+                <a href="@Url.Action("ServerMap", "services")" class="nav-link">المراكز والخدمات</a>
+                <a href="@Url.Action("Jobs", "services")" class="nav-link">الوظائف</a>
+                <a href="@Url.Action("Support", "services")" class="nav-link">الدعم الفني</a>
+            </div>
+
+        </div>
+
+        <div class="d-flex align-items-center gap-2">
+
+            <a href="@Url.Action("ReviewOrders", "services")" class="btn btn-outline-dark position-relative">
+                <i class="bi bi-bell"></i>
+            </a>
+
+           <!--<a href="/Accessibility" class="btn btn-outline-dark">
+                <i class="bi bi-gear"></i>
+                <span class="d-none d-lg-inline ms-1">سهولة الوصول</span>
+            </a>
+            -->
+              <a href="@Url.Action("Profile", "User")" class="btn btn-outline-dark">
+                <i class="bi bi-person-circle"></i>
+            </a>
+
+            <div class="dropdown">
+
+                <!-- زر تسجيل الدخول -->
+                <a href="#"
+                   class="btn btn-outline-dark dropdown-toggle"
+                   data-bs-toggle="dropdown"
+                   aria-expanded="false">
+                    تسجيل الدخول
+                </a>
+
+                <!-- القائمة -->
+                <ul class="dropdown-menu dropdown-menu-end text-end">
+
+                    <li>
+                        <a asp-controller="User" asp-action="Login" class="dropdown-item fw-bold" method="post">
+
+                            👤 مستخدم
+                        </a>
+                    </li>
+
+                    <li>
+                        <a asp-controller="Company" asp-action="LoginCompany" class="dropdown-item fw-bold">
+                            🏢 جهة داعمة
+                        </a>
+                    </li>
+
+                    <li>
+                        <a asp-controller="Admin" asp-action="Login" class="dropdown-item fw-bold">
+                            🛡️ مسؤول
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+        </div>
+
+    </div>
+</nav>
+<!-- 🔹 SEARCH BAR (تحت النافبار) -->
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <!-- وسعنا النطاق قليلاً لراحة العين -->
+            <div class="search-wrapper shadow-lg">
+                <input type="text"
+                       class="search-input"
+                       placeholder="ابحث عن خدمة، مركز، أو فرصة عمل...">
+                <button class="search-btn">
+                    <i class="bi bi-search ms-2"></i>
+                    بحث
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Navbar End -->
+<!-- Hero Start -->
+<!-- Hero Start -->
+<!-- Hero Start -->
+<!-- منطقة الـ Hero -->
+<!-- منطقة الـ Hero باستخدام Bootstrap فقط -->
+<section class="position-relative overflow-hidden rounded-5 shadow-lg my-5" style="height: 550px; border-radius: 0 !important;">
+    <!-- الصورة كخلفية كاملة -->
+    <img src="~/img/heroo.jpg"
+         alt="Background"
+         class="position-absolute w-100 h-100"
+         style="object-fit: cover; z-index: -1;">
+
+    <!-- طبقة التراكب والنصوص -->
+    <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(0,0,0,0.5);">
+        <div class="container text-white px-5">
+            <h2 class="display-3 fw-bold mb-4">
+                لأن الجميع يستحق الدعم.. <br>
+                <span class="text-success">نحن بوابتكم نحو التمكين</span>
+            </h2>
+            <p class="lead mb-5" style="max-width: 600px;">
+                منصة متخصصة لتسهيل حياة ذوي الإعاقة عبر ربطهم بأفضل المراكز والخدمات.
+            </p>
+            <div class="d-flex gap-3">
+                <a href='@Url.Action("ReadMore", "services") ' class="btn btn-success btn-lg px-5 py-3 rounded-pill shadow">
+                    اقرأ المزيد
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Hero End -->
+<!-- Hero End -->
+<!-- Hero End -->
+<!-- About Start -->
+<section class="help-section">
+    <div class="container">
+        <div class="row align-items-center g-5">
+            <!-- النصوص -->
+            <div class="feature-badge">
+                <i class="fas fa-sparkles"></i>
+                <div class="col-lg-6 order-2 order-lg-1">
+                    <span class="section-tag">خطوات بسيطة.. دعم مستمر</span>
+                    <h2 class="help-title">ابدأ بتقديم طلب المساعدة الآن</h2>
+
+                    <div class="feature-item">
+                        <div class="feature-icon"><i class="fas fa-user-check"></i></div>
+                        <div>
+                            <h5 class="fw-bold">سهولة الوصول</h5>
+                            <p class="text-muted">نظام بسيط مصمم خصيصاً ليناسب احتياجاتكم مع واجهة سهلة الاستخدام.</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-item">
+                        <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                        <div>
+                            <h5 class="fw-bold">خصوصية وأمان</h5>
+                            <p class="text-muted">بياناتكم وطلباتكم تُعالج بمنتهى السرية والاحترافية من قبل مختصين.</p>
+                        </div>
+                    </div>
+
+                    <p class="help-text mb-5 text-muted">
+                        نحن نؤمن بأن لكل فرد الحق في الحصول على المساعدة بطريقة كريمة. يتيح لك نظامنا تقديم طلبك بخطوات منظمة، وإرفاق المستندات اللازمة، لنقوم بتوصيلك بالجهات الداعمة في أسرع وقت.
+                    </p>
+
+                    <button class="btn btn-primary-action btn-lg" onclick="location.href='@Url.Action("RequestAssistance", "services")'">
+                        قدّم طلبك الآن
+                        <i class="fas fa-arrow-left ms-3"></i>
+                    </button>
+                </div>
+
+                <!-- الصورة -->
+                <div class="col-lg-6 order-1 order-lg-2">
+                    <div class="image-wrapper">
+                        <img src="~/img/help.jpeg"
+                             alt="صورة تعبيرية للمساعدة"
+                             class="img-fluid w-100">
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
+<!-- Services Start -->
+<section class="services-section">
+    <div class="container">
+        <div class="section-title-wrapper">
+            <h2>الخدمات الأساسية</h2>
+            <p class="text-muted fs-5">نقدم حلولاً متكاملة لدعمكم في كافة مجالات الحياة</p>
+        </div>
+
+        <div class="row g-4">
+            <!-- الوظائف -->
+            <div class="col-md-4">
+                <div class="service-card">
+                    <div class="service-icon-wrapper">
+                        <i class="fas fa-user-md"></i>
+                    </div>
+                    <h4>الوظائف</h4>
+                    <p>بوابة تمكين أصحاب الهمم، جسراً يصلك بأفضل الفرص الوظيفية وبيئات العمل الدامجة والمحفزة للنمو.</p>
+                    <!-- الرابط الخاص بك مدمج هنا -->
+                    <a href="@Url.Action("Jobs", "services")" class="service-btn">
+                        <i class="fas fa-arrow-left"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- خريطة المراكز -->
+            <div class="col-md-4">
+                <div class="service-card">
+                    <div class="service-icon-wrapper">
+                        <!-- الأيقونة fa-map-marked-alt أكثر دقة للخريطة من fa-procedures -->
+                        <i class="fas fa-map-marked-alt"></i>
+                    </div>
+                    <h4>خريطة المراكز والخدمات</h4>
+                    <p>بوصلة الوصول الشامل ترشدك لأقرب مراكز الدعم والخدمات المخصصة لك بكل سهولة ويسر جغرافي.</p>
+                    <!-- الرابط الخاص بك مدمج هنا -->
+                    <a href="@Url.Action("ServerMap", "services")" class="service-btn">
+                        <i class="fas fa-arrow-left"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- الدعم النفسي -->
+            <div class="col-md-4">
+                <div class="service-card">
+                    <div class="service-icon-wrapper">
+                        <i class="fas fa-stethoscope"></i>
+                    </div>
+                    <h4>الدعم النفسي</h4>
+                    <p>جلسات توعوية وإرشادية متخصصة لتخفيف الضغط عن أنفسكم وتعزيز الصحة النفسية والصلابة الذاتية.</p>
+                    <!-- الرابط الخاص بك مدمج هنا -->
+                    <a href="@Url.Action("FamilySupport", "services")" class="service-btn">
+                        <i class="fas fa-arrow-left"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Services End -->
+<!-- Appointment Start -->
+<!-- Appointment End -->
+<div class="container1-fluid my-5 py-5" style="background-color:  #064e3b;">
+    <div class="container py-5">
+        <div class="row gx-5">
+            <div class="col-lg-6 mb-5 mb-lg-0">
+                <div class="mb-4">
+                    <h5 class="d-inline-block text-white text-uppercase border-bottom border-5">دعم المشاريع</h5>
+                    <h1 class="display-4 text-white">حوّل فكرتك الصغيرة إلى مشروع منزلي ناجح</h1>
+                </div>
+                <p class="text-white mb-5">
+                    هذه المنصة مخصصة لتمكينك من إطلاق عملك الخاص من المنزل. نحن نوفر لك بوابة لتقديم أفكارك،
+                    بينما يقوم المسؤولون بربطك بمصادر التدريب اللازمة أو المتبرعين الذين يمكنهم تزويدك بالمعدات الأساسية (مثل آلات الخياطة) للبدء فوراً.
+                </p>
+                <div class="inspirational-box p-3 bg-white rounded-3 mb-4">
+                    <h6 class="text-dark mb-0">✨ "إعاقتك هي بداية لقصة نجاحك.. ابدأ مشروعك اليوم لنصنع التغيير معاً"</h6>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="bg-white text-center rounded p-5 shadow">
+                    <h1 class="mb-4">بوابة المشاريع</h1>
+                    <p class="mb-4">اضغط على الزر أدناه للانتقال إلى شاشة تقديم اشغالك والبدء في رحلة ريادة الأعمال.</p>
+
+                    <a href="@Url.Action("HomeProjects", "services")" class="btn btn-primary w-100 py-3 rounded-pill custom-project-btn">
+                        تقديم فكرة مشروع جديد
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid footer-green text-light mt-5">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-4 col-md-6">
+                <h4 class="d-inline-block text-white text-uppercase border-bottom border-5 border-secondary mb-4">
+                    يد العون
+                </h4>
+                <p class="mb-4" style="font-weight: bold;">
+                    منصة تهدف إلى تمكين الأشخاص ذوي الإعاقة من خلال توفير حلول تقنية ومعنوية تسهل دمجهم في المجتمع وسوق العمل.
+                </p>
+                <p class="mb-2"><i class="fa fa-map-marker-alt text-white me-3"></i>Amman, Jordan</p>
+                <p class="mb-2"><i class="fa fa-envelope text-white me-3"></i>yad_aloun@gmail.com</p>
+                <p class="mb-0"><i class="fa fa-phone-alt text-white me-3"></i>+962 345 67890</p>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <h4 class="d-inline-block text-white text-uppercase border-bottom border-5 border-secondary mb-4">
+                    الروابط السريعة
+                </h4>
+                <div class="d-flex flex-column justify-content-start">
+                    <a class="text-light mb-2" href="#!" style="font-weight: bold;"><i class="fa fa-angle-right me-2" ></i>الصفحة الرئيسية</a>
+                    <a class="text-light mb-2" href="#!" style="font-weight: bold;"><i class="fa fa-angle-right me-2"></i>من نحن</a>
+                    <a class="text-light mb-2" href="#!" style="font-weight: bold;"><i class="fa fa-angle-right me-2"></i>خدماتنا</a>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-12">
+                <h4 class="d-inline-block text-white text-uppercase border-bottom border-5 border-secondary mb-4">
+                    تابعنا
+                </h4>
+                <h6 class="text-white text-uppercase mb-3" style="font-weight: bold;">على مواقع التواصل الاجتماعي</h6>
+                <div class="d-flex">
+                    <a class="btn btn-lg btn-primary btn-lg-square rounded-circle me-2" href="#!">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a class="btn btn-lg btn-primary btn-lg-square rounded-circle me-2" href="#!">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a class="btn btn-lg btn-primary btn-lg-square rounded-circle" href="#!">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Topbar Start -->
+<!-- <div class="container-fluid py-2 border-bottom d-none d-lg-block">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 text-center text-lg-start mb-2 mb-lg-0">
+                <div class="d-inline-flex align-items-center">
+                    <a class="text-decoration-none text-body pe-3" href="#!"><i
+                            class="bi bi-telephone me-2"></i>+012
+                        345 6789</a>
+                    <span class="text-body">|</span>
+                    <a class="text-decoration-none text-body px-3" href="#!"><i
+                            class="bi bi-envelope me-2"></i>info@example.com</a>
+                </div>
+            </div>
+            <div class="col-md-6 text-center text-lg-end">
+                <div class="d-inline-flex align-items-center">
+                    <a class="text-body px-2" href="#!">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a class="text-body px-2" href="#!">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a class="text-body px-2" href="#!">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a class="text-body px-2" href="#!">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a class="text-body ps-2" href="#!">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>-->
+<!-- Topbar End -->
+
+
+<!-- Navbar Start -->
+<!-- Bootstrap CSS + Icons -->
+@* <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+<nav class="navbar navbar-expand-lg bg-light px-4" dir="rtl">
+
+   <!--  <!-- 🔹 زر الموبايل -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- 🔹 كل المحتوى -->
+    <div class="collapse navbar-collapse justify-content-between" id="navbarMenu">
+
+        <!-- 🔹 اليمين: الشعار + القائمة -->
+        @* <div class="d-flex align-items-center"> *@
+
+            <!-- الشعار -->
+           @*  <a href="index.html" class="navbar-brand d-flex align-items-center me-3">
+                <i class="fa fa-clinic-medical me-2" style="color:#1f7a6b;"></i>
+                <span style="color:#1f7a6b; font-weight:bold;">يد العون</span>
+            </a>
+
+            <!-- القائمة -->
+           <div class="navbar-nav">
+
+                <a asp-controller="Home" asp-action="Index" class="nav-link">@Localizer["الرئيسية"]</a>
+                <a asp-controller="Center" asp-action="Center" class="nav-link">@Localizer["المراكز والخدمات"]</a>
+                <a asp-controller="Home" asp-action="Index" class="nav-link"> @Localizer["الوظائف"]</a>
+                <a asp-controller="Home" asp-action="Index" class="nav-link">@Localizer["من نحن"]</a>
+                <a asp-controller="Home" asp-action="Index" class="nav-link">@Localizer["الدعم الفني "]</a>
+                <div class="navbar-nav">
+                   </div>
+            </div>
+
+        </div>
+
+        <!-- 🔹 اليسار -->
+        <div class="d-flex align-items-center gap-2">
+
+            <a href="/Notifications" class="btn btn-outline-dark position-relative">
+
+                <i class="bi bi-bell"></i>
+
+            </a>
+
+            <!-- سهولة الوصول -->
+            <a href="/Accessibility" class="btn btn-outline-dark">
+
+                <i class="bi bi-gear"></i>
+                <span class="d-none d-lg-inline ms-1">سهولة الوصول</span>
+
+            </a>
+
+            <div class="dropdown">
+
+                <!-- زر تسجيل الدخول -->
+                <a href="#"
+                   class="btn btn-outline-dark dropdown-toggle"
+                   data-bs-toggle="dropdown"
+                   aria-expanded="false">
+                    تسجيل الدخول
+                </a>
+
+                <!-- القائمة -->
+                <ul class="dropdown-menu dropdown-menu-end text-end">
+
+                    <li>
+                        <a asp-controller="User" asp-action="Login" class="dropdown-item fw-bold" method="post">
+                          
+                            👤 مستخدم
+                        </a>
+                    </li>
+
+                    <li>
+                        <a asp-controller="Company" asp-action="Login" class="dropdown-item fw-bold">
+                             🏢 جهة داعمة
+                        </a>
+                    </li>
+
+                    <li>
+                        <a asp-controller="Admin" asp-action="Login" class="dropdown-item fw-bold">
+                            🛡️ مسؤول
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+</nav>
+<!-- 🔹 SEARCH BAR (تحت النافبار) -->
+<div class="container py-4">
+
+    <div class="row justify-content-center">
+
+        <!-- صغّر العرض من هنا -->
+        <div class="col-md-6 col-lg-4">
+
+            <div class="input-group shadow-sm search-box">
+
+                <input type="text"
+                       class="form-control text-end"
+                       placeholder="ابحث عن خدمة أو فرصة عمل...">
+
+                <span class="input-group-text bg-white">
+                    <i class="bi bi-search"></i>
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<!-- Navbar End -->
+
+
+<!-- Hero Start -->
+<!-- Hero Start -->
+<!-- Hero Start -->
+<div class="container-fluid py-5 mb-5" style="background: #0f766e;">
+    <div class="container py-5">
+        <div class="row justify-content-start">
+            <div class="col-lg-8 text-center text-lg-start">
+
+                <!-- عنوان صغير -->
+                <h5 class="d-inline-block text-white text-uppercase border-bottom border-3 mb-3"
+                    style="border-color: rgba(255,255,255,.4);">
+                    منصة يد العون
+                </h5>
+
+                <!-- العنوان الرئيسي -->
+                <h1 class="display-4 text-white mb-4">
+                    أن الجميع يستحق الدعم
+                </h1>
+
+                <!-- وصف -->
+                <p class="text-white mb-4">
+                    منصة مخصصة لتسهيل حياة ذوي الإعاقة عبر ربطهم بالخدمات والجهات الداعمة بكل سهولة
+                </p>
+
+              
+                <a href="/About" class="btn btn-light rounded-pill px-4 py-2 fw-bold">
+                    المزيد عنا
+                </a>
+
+
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+<!-- Hero End -->
+<!-- Hero End -->
+<!-- Hero End -->
+
+
+<!-- About Start -->
+<div class="container-fluid py-5">
+    <div class="container">
+        <div class="row gx-5">
+            <div class="col-lg-5 mb-5 mb-lg-0" style="min-height: 500px;">
+                <div class="position-relative h-100">
+                    <img class="position-absolute w-100 h-100 rounded" src="img/about.jpg"
+                        style="object-fit: cover;">
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <div class="mb-4">
+                   
+                    <h1 class="display-4">ابدأ بتقديم طلب المساعدة</h1>
+                </div>
+                <p>
+                    تُقدّم منصة يد العون مساحة متكاملة تهدف إلى تسهيل وصول ذوي الإعاقة إلى مختلف أنواع الدعم والخدمات التي يحتاجونها في حياتهم اليومية. نحن نؤمن بأن لكل فرد الحق في الحصول على المساعدة بطريقة كريمة وسهلة، لذلك عملنا على تصميم نظام بسيط وواضح يتيح لك تقديم طلبك بخطوات منظّمة وسريعة.
+
+                    من خلال هذه الخدمة، يمكنك تحديد نوع المساعدة التي تحتاجها، وإدخال تفاصيل طلبك، وإرفاق المستندات اللازمة، ليتم بعدها توجيه طلبك إلى الجهات الداعمة المختصة بأسرع وقت ممكن. نحن هنا لنرافقك في كل خطوة، ونسعى لتوفير تجربة مريحة وآمنة تضمن وصول صوتك واحتياجاتك بشكل فعّال وواضح.
+                </p>
+             <div class="text-center mt-4">
+
+  <div class="d-flex justify-content-center mt-5">
+
+    <a href="/Request/Create" class="btn main-btn px-5 py-3 rounded-pill fw-bold shadow-lg">
+        قدّم طلبك الآن
+    </a>
+
+</div>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+   
+
+<!-- About End -->
+
+
+<!-- Services Start -->
+<!-- Services Start -->
+<div class="container-fluid py-5">
+    <div class="container">
+        <div class="text-center mx-auto mb-5" style="max-width: 500px;">
+           <!-- <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5">الخدمات</h5>-->
+            <h1 class="display-4">الخدمات الاساسية</h1>
+        </div>
+        <div-- class="row g-5">
+            <div class="col-lg-4 col-md-6">
+                <div class="service-item bg-light rounded d-flex flex-column align-items-center justify-content-center text-center">
+                    <div class="service-icon mb-4">
+                        <i class="fa fa-2x fa-user-md text-white"></i>
+                    </div>
+                    <h4 class="mb-3">الوظائف</h4>
+                    <p class="m-0">
+                        بوابة تمكين أصحاب الهمم جسراً يصلك بأفضل الفرص الوظيفية وبيئات العمل الدامجة
+                    </p>
+                    <a class="btn btn-lg btn-primary rounded-pill" href="@Url.Action("Jobs", "services")">
+                        <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="service-item bg-light rounded d-flex flex-column align-items-center justify-content-center text-center">
+                    <div class="service-icon mb-4">
+                        <i class="fa fa-2x fa-procedures text-white"></i>
+                    </div>
+                    <h4 class="mb-3">خريطة المراكز والخدمات</h4>
+                    <p class="m-0">
+                        بوصلة الوصول الشامل ترشدك لأقرب مراكز الدعم والخدمات المخصصة لك بكل سهولة
+                    </p>
+                    <a class="btn btn-lg btn-primary rounded-pill" href="@Url.Action("ServerMap", "services")">
+                        <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="service-item bg-light rounded d-flex flex-column align-items-center justify-content-center text-center">
+                    <div class="service-icon mb-4">
+                        <i class="fa fa-2x fa-stethoscope text-white"></i>
+                    </div>
+                    <h4 class="mb-3">الدعم النفسي</h4>
+                    <p class="m-0">
+                        جلسات توعوية وارشادية لتخفف الضغط عن انفسكم
+                    </p>
+                    <button type="submit" class="btn btn-main w-100 py-2">
+                        إرسال الطلب
+                    </button>
+                    </a>
+                </div>
+            </div>
+<!-- Services End -->
+
+
+<!-- Appointment Start -->
+           
+            <div class="container1-fluid my-5 py-5" style="background-color:  #0f766e;">
+                <div class="container py-5">
+                    <div class="row gx-5">
+                        <div class="col-lg-6 mb-5 mb-lg-0">
+                            <div class="mb-4">
+                                <h5 class="d-inline-block text-white text-uppercase border-bottom border-5">دعم المشاريع</h5>
+                                <h1 class="display-4 text-white">حوّل فكرتك الصغيرة إلى مشروع منزلي ناجح</h1>
+                            </div>
+                            <p class="text-white mb-5">
+                                هذه المنصة مخصصة لتمكينك من إطلاق عملك الخاص من المنزل. نحن نوفر لك بوابة لتقديم أفكارك،
+                                بينما يقوم المسؤولون بربطك بمصادر التدريب اللازمة أو المتبرعين الذين يمكنهم تزويدك بالمعدات الأساسية (مثل آلات الخياطة) للبدء فوراً.
+                            </p>
+                            <div class="inspirational-box p-3 bg-white rounded-3 mb-4">
+                                <h6 class="text-primary mb-0">✨ "إعاقتك هي بداية لقصة نجاحك.. ابدأ مشروعك اليوم لنصنع التغيير معاً"</h6>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="bg-white text-center rounded p-5 shadow">
+                                <h1 class="mb-4">بوابة المشاريع</h1>
+                                <p class="mb-4">اضغط على الزر أدناه للانتقال إلى شاشة تقديم اشغالك والبدء في رحلة ريادة الأعمال.</p>
+
+                                <a href="@Url.Action("HomeProjects", "services")" class="btn btn-primary w-100 py-3 rounded-pill custom-project-btn">
+                                    تقديم فكرة مشروع جديد
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+<!-- Appointment End -->
+
+
+<!-- Pricing Plan Start -->
+ <!--<div class="container-fluid py-5">
+    <div class="container">
+        <div class="text-center mx-auto mb-5" style="max-width: 500px;">
+            <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5">Medical Packages</h5>
+            <h1 class="display-4">Awesome Medical Programs</h1>
+        </div>
+        <div class="owl-carousel price-carousel position-relative" style="padding: 0 45px 45px 45px;">
+            <div class="bg-light rounded text-center">
+                <div class="position-relative">
+                    <img class="img-fluid rounded-top" src="img/price-1.jpg" alt="">
+                    <div class="position-absolute w-100 h-100 top-50 start-50 translate-middle rounded-top d-flex flex-column align-items-center justify-content-center"
+                        style="background: rgba(29, 42, 77, .8);">
+                        <h3 class="text-white">Pregnancy Care</h3>
+                        <h1 class="display-4 text-white mb-0">
+                            <small class="align-top fw-normal"
+                                style="font-size: 22px; line-height: 45px;">$</small>49<small
+                                class="align-bottom fw-normal" style="font-size: 16px; line-height: 40px;">/
+                                Year</small>
+                        </h1>
+                    </div>
+                </div>
+                <div class="text-center py-5">
+                    <p>Emergency Medical Treatment</p>
+                    <p>Highly Experienced Doctors</p>
+                    <p>Highest Success Rate</p>
+                    <p>Telephone Service</p>
+                    <a href="#!" class="btn btn-primary rounded-pill py-3 px-5 my-2">Apply Now</a>
+                </div>
+            </div>
+            <div class="bg-light rounded text-center">
+                <div class="position-relative">
+                    <img class="img-fluid rounded-top" src="img/price-2.jpg" alt="">
+                    <div class="position-absolute w-100 h-100 top-50 start-50 translate-middle rounded-top d-flex flex-column align-items-center justify-content-center"
+                        style="background: rgba(29, 42, 77, .8);">
+                        <h3 class="text-white">Health Checkup</h3>
+                        <h1 class="display-4 text-white mb-0">
+                            <small class="align-top fw-normal"
+                                style="font-size: 22px; line-height: 45px;">$</small>99<small
+                                class="align-bottom fw-normal" style="font-size: 16px; line-height: 40px;">/
+                                Year</small>
+                        </h1>
+                    </div>
+                </div>
+                <div class="text-center py-5">
+                    <p>Emergency Medical Treatment</p>
+                    <p>Highly Experienced Doctors</p>
+                    <p>Highest Success Rate</p>
+                    <p>Telephone Service</p>
+                    <a href="#!" class="btn btn-primary rounded-pill py-3 px-5 my-2">Apply Now</a>
+                </div>
+            </div>
+            <div class="bg-light rounded text-center">
+                <div class="position-relative">
+                    <img class="img-fluid rounded-top" src="img/price-3.jpg" alt="">
+                    <div class="position-absolute w-100 h-100 top-50 start-50 translate-middle rounded-top d-flex flex-column align-items-center justify-content-center"
+                        style="background: rgba(29, 42, 77, .8);">
+                        <h3 class="text-white">Dental Care</h3>
+                        <h1 class="display-4 text-white mb-0">
+                            <small class="align-top fw-normal"
+                                style="font-size: 22px; line-height: 45px;">$</small>149<small
+                                class="align-bottom fw-normal" style="font-size: 16px; line-height: 40px;">/
+                                Year</small>
+                        </h1>
+                    </div>
+                </div>
+                <div class="text-center py-5">
+                    <p>Emergency Medical Treatment</p>
+                    <p>Highly Experienced Doctors</p>
+                    <p>Highest Success Rate</p>
+                    <p>Telephone Service</p>
+                    <a href="#!" class="btn btn-primary rounded-pill py-3 px-5 my-2">Apply Now</a>
+                </div>
+            </div>
+            <div class="bg-light rounded text-center">
+                <div class="position-relative">
+                    <img class="img-fluid rounded-top" src="img/price-4.jpg" alt="">
+                    <div class="position-absolute w-100 h-100 top-50 start-50 translate-middle rounded-top d-flex flex-column align-items-center justify-content-center"
+                        style="background: rgba(29, 42, 77, .8);">
+                        <h3 class="text-white">Operation & Surgery</h3>
+                        <h1 class="display-4 text-white mb-0">
+                            <small class="align-top fw-normal"
+                                style="font-size: 22px; line-height: 45px;">$</small>199<small
+                                class="align-bottom fw-normal" style="font-size: 16px; line-height: 40px;">/
+                                Year</small>
+                        </h1>
+                    </div>
+                </div>
+                <div class="text-center py-5">
+                    <p>Emergency Medical Treatment</p>
+                    <p>Highly Experienced Doctors</p>
+                    <p>Highest Success Rate</p>
+                    <p>Telephone Service</p>
+                    <a href="#!" class="btn btn-primary rounded-pill py-3 px-5 my-2">Apply Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Pricing Plan End -->
+
+
+<!-- Team Start -->
+<div class="container-fluid py-5">
+    <div class="container">
+        <div class="text-center mx-auto mb-5" style="max-width: 500px;">
+            <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5">Our Doctors</h5>
+            <h1 class="display-4">Qualified Healthcare Professionals</h1>
+        </div>
+        <div class="owl-carousel team-carousel position-relative">
+            <div class="team-item">
+                <div class="row g-0 bg-light rounded overflow-hidden">
+                    <div class="col-12 col-sm-5 h-100">
+                        <img class="img-fluid h-100" src="img/team-1.jpg" style="object-fit: cover;">
+                    </div>
+                    <div class="col-12 col-sm-7 h-100 d-flex flex-column">
+                        <div class="mt-auto p-4">
+                            <h3>Doctor Name</h3>
+                            <h6 class="fw-normal fst-italic text-primary mb-4">Cardiology Specialist</h6>
+                            <p class="m-0">Dolor lorem eos dolor duo eirmod sea. Dolor sit magna rebum clita rebum
+                                dolor</p>
+                        </div>
+                        <div class="d-flex mt-auto border-top p-4">
+                            <a class="btn btn-lg btn-primary btn-lg-square rounded-circle me-3" href="#!"><i
+                                    class="fab fa-twitter"></i></a>
+                            <a class="btn btn-lg btn-primary btn-lg-square rounded-circle me-3" href="#!"><i
+                                    class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-lg btn-primary btn-lg-square rounded-circle" href="#!"><i
+                                    class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="team-item">
+                <div class="row g-0 bg-light rounded overflow-hidden">
+                    <div class="col-12 col-sm-5 h-100">
+                        <img class="img-fluid h-100" src="img/team-2.jpg" style="object-fit: cover;">
+                    </div>
+                    <div class="col-12 col-sm-7 h-100 d-flex flex-column">
+                        <div class="mt-auto p-4">
+                            <h3>Doctor Name</h3>
+                            <h6 class="fw-normal fst-italic text-primary mb-4">Cardiology Specialist</h6>
+                            <p class="m-0">Dolor lorem eos dolor duo eirmod sea. Dolor sit magna rebum clita rebum
+                                dolor</p>
+                        </div>
+                        <div class="d-flex mt-auto border-top p-4">
+                            <a class="btn btn-lg btn-primary btn-lg-square rounded-circle me-3" href="#!"><i
+                                    class="fab fa-twitter"></i></a>
+                            <a class="btn btn-lg btn-primary btn-lg-square rounded-circle me-3" href="#!"><i
+                                    class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-lg btn-primary btn-lg-square rounded-circle" href="#!"><i
+                                    class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="team-item">
+                <div class="row g-0 bg-light rounded overflow-hidden">
+                    <div class="col-12 col-sm-5 h-100">
+                        <img class="img-fluid h-100" src="img/team-3.jpg" style="object-fit: cover;">
+                    </div>
+                    <div class="col-12 col-sm-7 h-100 d-flex flex-column">
+                        <div class="mt-auto p-4">
+                            <h3>Doctor Name</h3>
+                            <h6 class="fw-normal fst-italic text-primary mb-4">Cardiology Specialist</h6>
+                            <p class="m-0">Dolor lorem eos dolor duo eirmod sea. Dolor sit magna rebum clita rebum
+                                dolor</p>
+                        </div>
+                        <div class="d-flex mt-auto border-top p-4">
+                            <a class="btn btn-lg btn-primary btn-lg-square rounded-circle me-3" href="#!"><i
+                                    class="fab fa-twitter"></i></a>
+                            <a class="btn btn-lg btn-primary btn-lg-square rounded-circle me-3" href="#!"><i
+                                    class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-lg btn-primary btn-lg-square rounded-circle" href="#!"><i
+                                    class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Team End -->
+
+
+<!-- Search Start -->
+<div class="container-fluid bg-primary my-5 py-5">
+    <div class="container py-5">
+        <div class="text-center mx-auto mb-5" style="max-width: 500px;">
+            <h5 class="d-inline-block text-white text-uppercase border-bottom border-5">Find A Doctor</h5>
+            <h1 class="display-4 mb-4">Find A Healthcare Professionals</h1>
+            <h5 class="text-white fw-normal">Duo ipsum erat stet dolor sea ut nonumy tempor. Tempor duo lorem eos
+                sit sed ipsum takimata ipsum sit est. Ipsum ea voluptua ipsum sit justo</h5>
+        </div>
+        <div class="mx-auto" style="width: 100%; max-width: 600px;">
+            <div class="input-group">
+                <select class="form-select border-primary w-25" style="height: 60px;">
+                    <option selected>Department</option>
+                    <option value="1">Department 1</option>
+                    <option value="2">Department 2</option>
+                    <option value="3">Department 3</option>
+                </select>
+                <input type="text" class="form-control border-primary w-50" placeholder="Keyword">
+                <button class="btn btn-dark border-0 w-25">Search</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Search End -->
+
+
+<!-- Testimonial Start -->
+<div class="container-fluid py-5">
+    <div class="container">
+        <div class="text-center mx-auto mb-5" style="max-width: 500px;">
+            <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5">Testimonial</h5>
+            <h1 class="display-4">Patients Say About Our Services</h1>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="owl-carousel testimonial-carousel">
+                    <div class="testimonial-item text-center">
+                        <div class="position-relative mb-5">
+                            <img class="img-fluid rounded-circle mx-auto" src="img/testimonial-1.jpg" alt="">
+                            <div class="position-absolute top-100 start-50 translate-middle d-flex align-items-center justify-content-center bg-white rounded-circle"
+                                style="width: 60px; height: 60px;">
+                                <i class="fa fa-quote-left fa-2x text-primary"></i>
+                            </div>
+                        </div>
+                        <p class="fs-4 fw-normal">Dolores sed duo clita tempor justo dolor et stet lorem kasd labore
+                            dolore lorem ipsum. At lorem lorem magna ut et, nonumy et labore et tempor diam tempor
+                            erat. Erat dolor rebum sit ipsum.</p>
+                        <hr class="w-25 mx-auto">
+                        <h3>Patient Name</h3>
+                        <h6 class="fw-normal text-primary mb-3">Profession</h6>
+                    </div>
+                    <div class="testimonial-item text-center">
+                        <div class="position-relative mb-5">
+                            <img class="img-fluid rounded-circle mx-auto" src="img/testimonial-2.jpg" alt="">
+                            <div class="position-absolute top-100 start-50 translate-middle d-flex align-items-center justify-content-center bg-white rounded-circle"
+                                style="width: 60px; height: 60px;">
+                                <i class="fa fa-quote-left fa-2x text-primary"></i>
+                            </div>
+                        </div>
+                        <p class="fs-4 fw-normal">Dolores sed duo clita tempor justo dolor et stet lorem kasd labore
+                            dolore lorem ipsum. At lorem lorem magna ut et, nonumy et labore et tempor diam tempor
+                            erat. Erat dolor rebum sit ipsum.</p>
+                        <hr class="w-25 mx-auto">
+                        <h3>Patient Name</h3>
+                        <h6 class="fw-normal text-primary mb-3">Profession</h6>
+                    </div>
+                    <div class="testimonial-item text-center">
+                        <div class="position-relative mb-5">
+                            <img class="img-fluid rounded-circle mx-auto" src="img/testimonial-3.jpg" alt="">
+                            <div class="position-absolute top-100 start-50 translate-middle d-flex align-items-center justify-content-center bg-white rounded-circle"
+                                style="width: 60px; height: 60px;">
+                                <i class="fa fa-quote-left fa-2x text-primary"></i>
+                            </div>
+                        </div>
+                        <p class="fs-4 fw-normal">Dolores sed duo clita tempor justo dolor et stet lorem kasd labore
+                            dolore lorem ipsum. At lorem lorem magna ut et, nonumy et labore et tempor diam tempor
+                            erat. Erat dolor rebum sit ipsum.</p>
+                        <hr class="w-25 mx-auto">
+                        <h3>Patient Name</h3>
+                        <h6 class="fw-normal text-primary mb-3">Profession</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Testimonial End -->
+
+
+<!-- Blog Start -->
+<div class="container-fluid py-5">
+    <div class="container">
+        <div class="text-center mx-auto mb-5" style="max-width: 500px;">
+            <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5">Blog Post</h5>
+            <h1 class="display-4">Our Latest Medical Blog Posts</h1>
+        </div>
+        <div class="row g-5">
+            <div class="col-xl-4 col-lg-6">
+                <div class="bg-light rounded overflow-hidden">
+                    <img class="img-fluid w-100" src="img/blog-1.jpg" alt="">
+                    <div class="p-4">
+                        <a class="h3 d-block mb-3" href="#!">Dolor clita vero elitr sea stet dolor justo diam</a>
+                        <p class="m-0">Dolor lorem eos dolor duo et eirmod sea. Dolor sit magna
+                            rebum clita rebum dolor stet amet justo</p>
+                    </div>
+                    <div class="d-flex justify-content-between border-top p-4">
+                        <div class="d-flex align-items-center">
+                            <img class="rounded-circle me-2" src="img/user.jpg" width="25" height="25" alt="">
+                            <small>John Doe</small>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <small class="ms-3"><i class="far fa-eye text-primary me-1"></i>12345</small>
+                            <small class="ms-3"><i class="far fa-comment text-primary me-1"></i>123</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 col-lg-6">
+                <div class="bg-light rounded overflow-hidden">
+                    <img class="img-fluid w-100" src="img/blog-2.jpg" alt="">
+                    <div class="p-4">
+                        <a class="h3 d-block mb-3" href="#!">Dolor clita vero elitr sea stet dolor justo diam</a>
+                        <p class="m-0">Dolor lorem eos dolor duo et eirmod sea. Dolor sit magna
+                            rebum clita rebum dolor stet amet justo</p>
+                    </div>
+                    <div class="d-flex justify-content-between border-top p-4">
+                        <div class="d-flex align-items-center">
+                            <img class="rounded-circle me-2" src="img/user.jpg" width="25" height="25" alt="">
+                            <small>John Doe</small>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <small class="ms-3"><i class="far fa-eye text-primary me-1"></i>12345</small>
+                            <small class="ms-3"><i class="far fa-comment text-primary me-1"></i>123</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 col-lg-6">
+                <div class="bg-light rounded overflow-hidden">
+                    <img class="img-fluid w-100" src="img/blog-3.jpg" alt="">
+                    <div class="p-4">
+                        <a class="h3 d-block mb-3" href="#!">Dolor clita vero elitr sea stet dolor justo diam</a>
+                        <p class="m-0">Dolor lorem eos dolor duo et eirmod sea. Dolor sit magna
+                            rebum clita rebum dolor stet amet justo</p>
+                    </div>
+                    <div class="d-flex justify-content-between border-top p-4">
+                        <div class="d-flex align-items-center">
+                            <img class="rounded-circle me-2" src="img/user.jpg" width="25" height="25" alt="">
+                            <small>John Doe</small>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <small class="ms-3"><i class="far fa-eye text-primary me-1"></i>12345</small>
+                            <small class="ms-3"><i class="far fa-comment text-primary me-1"></i>123</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+            </div>   
+<!-- Blog End -->
+    <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-light mt-5 py-5">
+        <div class="container py-5">
+            <div class="row g-5">
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 border-secondary mb-4">
+                        Get In Touch
+                    </h4>
+                    <p class="mb-4">
+                        No dolore ipsum accusam no lorem. Invidunt sed clita kasd clita et et dolor sed
+                        dolor
+                    </p>
+                    <p class="mb-2"><i class="fa fa-map-marker-alt text-primary me-3"></i>123 Street, New York, USA</p>
+                    <p class="mb-2"><i class="fa fa-envelope text-primary me-3"></i>info@example.com</p>
+                    <p class="mb-0"><i class="fa fa-phone-alt text-primary me-3"></i>+012 345 67890</p>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 border-secondary mb-4">
+                        Quick Links
+                    </h4>
+                    <div class="d-flex flex-column justify-content-start">
+                        <a class="text-light mb-2" href="#!"><i class="fa fa-angle-right me-2"></i>Home</a>
+                        <a class="text-light mb-2" href="#!"><i class="fa fa-angle-right me-2"></i>About Us</a>
+                        <a class="text-light mb-2" href="#!"><i class="fa fa-angle-right me-2"></i>Our Services</a>
+                        <a class="text-light mb-2" href="#!"><i class="fa fa-angle-right me-2"></i>Meet The Team</a>
+                        <a class="text-light mb-2" href="#!"><i class="fa fa-angle-right me-2"></i>Latest Blog</a>
+                        <a class="text-light" href="#!"><i class="fa fa-angle-right me-2"></i>Contact Us</a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 border-secondary mb-4">
+                        Popular Links
+                    </h4>
+                    <div class="d-flex flex-column justify-content-start">
+                        <a class="text-light mb-2" href="#!"><i class="fa fa-angle-right me-2"></i>Home</a>
+                        <a class="text-light mb-2" href="#!"><i class="fa fa-angle-right me-2"></i>About Us</a>
+                        <a class="text-light mb-2" href="#!"><i class="fa fa-angle-right me-2"></i>Our Services</a>
+                        <a class="text-light mb-2" href="#!"><i class="fa fa-angle-right me-2"></i>Meet The Team</a>
+                        <a class="text-light mb-2" href="#!"><i class="fa fa-angle-right me-2"></i>Latest Blog</a>
+                        <a class="text-light" href="#!"><i class="fa fa-angle-right me-2"></i>Contact Us</a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 border-secondary mb-4">
+                        Newsletter
+                    </h4>
+                    <form action="">
+                        <div class="input-group">
+                            <input type="text" class="form-control p-3 border-0" placeholder="Your Email Address">
+                            <button class="btn btn-primary">Sign Up</button>
+                        </div>
+                    </form>
+                    <h6 class="text-primary text-uppercase mt-4 mb-3">Follow Us</h6>
+                    <div class="d-flex">
+                        <a class="btn btn-lg btn-primary btn-lg-square rounded-circle me-2" href="#!">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a class="btn btn-lg btn-primary btn-lg-square rounded-circle me-2" href="#!">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a class="btn btn-lg btn-primary btn-lg-square rounded-circle me-2" href="#!">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a class="btn btn-lg btn-primary btn-lg-square rounded-circle" href="#!">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid bg-dark text-light border-top border-secondary py-4">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-md-0">
+                        &copy; <a class="text-primary" href="#!">Your Site Name</a>. All Rights Reserved.
+                    </p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <p class="mb-0">
+                        Designed by <a class="text-primary" href="https://htmlcodex.com"
+                                       target="_blank">HTML Codex</a>. Distributed by <a href="https://themewagon.com"
+                                                                                         target="_blank">ThemeWagon</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+                   *@

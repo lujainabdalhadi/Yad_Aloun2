@@ -1,0 +1,111 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "خريطة الخدمات";
+}
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<style>
+    .map-container {
+        flex: 0 0 65%;
+        height: calc(100vh - 80px);
+    }
+
+    #map {
+        height: 100%;
+        width: 100%;
+    }
+
+    .sidebar-container {
+        flex: 0 0 35%;
+        height: calc(100vh - 80px);
+        overflow-y: auto;
+    }
+
+    .btn-hcd {
+        background-color: #064e3b;
+        color: white;
+        font-weight: bold;
+        border-radius: 10px;
+    }
+
+    .card-item {
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+        .card-item:hover {
+            background-color: #f0f7f4;
+            border-right: 4px solid #064e3b !important;
+        }
+</style>
+
+<nav class="navbar navbar-expand-lg navbar-dark shadow-sm px-4 py-3" style="background-color: #064e3b;">
+    <div class="container-fluid d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center gap-3">
+            <div class="d-flex align-items-center gap-2">
+
+                <i class="fa fa-hand-holding-heart text-white" style="font-size:42px;"></i>
+                <span class="h3 fw-bold text-white mb-0">يد العون</span>
+            </div>
+            <div class="vr text-white opacity-50" style="height: 24px;"></div>
+            <div class="text-white fw-bold fs-5">بوابة المراكز والمستشفيات</div>
+        </div>
+        <button class="btn btn-outline-light rounded-pill px-4" onclick="location.href='@Url.Action("Support", "services")'">
+            <i class="fas fa-headset me-2"></i> الدعم الفني
+        </button>
+    </div>
+</nav>
+
+<div class="d-flex flex-grow-1 overflow-hidden" dir="rtl">
+    <div class="map-container border-end">
+        <div id="map"></div>
+    </div>
+
+    <div class="sidebar-container bg-white p-3 shadow-sm">
+        <h5 class="mb-3">قائمة المراكز والمستشفيات</h5>
+        <div id="cardsList">
+            <div class="card p-3 mb-2 card-item shadow-sm border-0 border-end border-success border-4" onclick="selectLocation(32.012, 35.870, 'مستشفى الجامعة الأردنية')">
+                <h6 class="fw-bold">مستشفى الجامعة الأردنية</h6>
+            </div>
+            <div class="card p-3 mb-2 card-item shadow-sm border-0 border-end border-success border-4" onclick="selectLocation(32.015, 35.860, 'مركز الحسين للسرطان')">
+                <h6 class="fw-bold">مركز الحسين للسرطان</h6>
+            </div>
+            <div class="card p-3 mb-2 card-item shadow-sm border-0 border-end border-success border-4" onclick="selectLocation(32.559, 35.850, 'مستشفى الأميرة رحمة التعليمي')">
+                <h6 class="fw-bold">مستشفى الأميرة رحمة التعليمي</h6>
+            </div>
+            <div class="card p-3 mb-2 card-item shadow-sm border-0 border-end border-success border-4" onclick="selectLocation(32.555, 35.845, 'مستشفى الأميرة بسمة التعليمي')">
+                <h6 class="fw-bold">مستشفى الأميرة بسمة التعليمي</h6>
+            </div>
+            <div class="card p-3 mb-2 card-item shadow-sm border-0 border-end border-success border-4" onclick="selectLocation(32.650, 35.950, 'مركز صحي سهل حوران الشامل')">
+                <h6 class="fw-bold">مركز صحي سهل حوران الشامل</h6>
+            </div>
+            <div class="card p-3 mb-2 card-item shadow-sm border-0 border-end border-success border-4" onclick="selectLocation(32.520, 35.750, 'مركز المنار للتنمية الفكرية')">
+                <h6 class="fw-bold">مركز المنار للتنمية الفكرية</h6>
+            </div>
+            <div class="card p-3 mb-2 card-item shadow-sm border-0 border-end border-success border-4" onclick="selectLocation(32.535, 35.800, 'مركز غرب إربد لذوي الاحتياجات')">
+                <h6 class="fw-bold">مركز غرب إربد لذوي الاحتياجات الخاصة</h6>
+            </div>
+            <div class="card p-3 mb-2 card-item shadow-sm border-0 border-end border-success border-4" onclick="selectLocation(32.540, 35.810, 'مديرية التنمية الاجتماعية - غرب إربد')">
+                <h6 class="fw-bold">مديرية التنمية الاجتماعية / غرب إربد</h6>
+            </div>
+        </div>
+
+        <div class="mt-4 pt-3 border-top">
+            <a href="https://www.hcd.gov.jo" target="_blank" class="btn btn-hcd w-100 p-3 shadow">
+                <i class="fas fa-landmark me-2"></i> دليل المراكز المعتمدة - المجلس الأعلى
+            </a>
+        </div>
+    </div>
+</div>
+
+<script>
+    var map = L.map('map').setView([32.0, 35.8], 9);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+    function selectLocation(lat, lng, name) {
+        map.flyTo([lat, lng], 15);
+        L.popup().setLatLng([lat, lng]).setContent("<b>" + name + "</b>").openOn(map);
+    }
+</script>

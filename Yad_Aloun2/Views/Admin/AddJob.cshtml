@@ -1,0 +1,104 @@
+﻿@model Yad_Aloun2.Models.JobOpportunity
+
+@{
+    ViewData["Title"] = "إضافة وظيفة جديدة";
+    Layout = "_Layout";
+}
+
+<h1 class="text-center fw-bold mb-5">
+    إضافة وظيفة جديدة
+</h1>
+
+<form asp-action="AddJob" method="post">
+
+    <div class="row">
+
+                <div class="col-md-6 mb-4">
+                    <label class="form-label fw-bold">
+                        عنوان الوظيفة
+                    </label>
+
+                    <input asp-for="JobTitle"
+                           class="form-control rounded-pill p-3" />
+                </div>
+
+     
+                <div class="col-md-6 mb-4">
+                    <label class="form-label fw-bold">
+                        الراتب المتوقع
+                    </label>
+
+                    <input asp-for="Salary"
+                           class="form-control rounded-pill p-3" />
+                </div>
+
+                <div class="col-md-6 mb-4">
+                    <label class="form-label fw-bold">
+                        المنطقة
+                    </label>
+
+                    <input asp-for="Location"
+                           class="form-control rounded-pill p-3" />
+                </div>
+
+                <div class="col-md-6 mb-4">
+                    <label class="form-label fw-bold">
+                        نوع الدوام
+                    </label>
+
+                    <select asp-for="JobType"
+                            class="form-select rounded-pill p-3">
+
+                        <option>دوام كامل</option>
+                        <option>دوام جزئي</option>
+                        <option>عن بعد</option>
+
+                    </select>
+                </div>
+
+            <div class="col-md-6 mb-4">
+                <label class="form-label fw-bold">
+                    نوع الإعاقة المناسب
+                </label>
+
+                <select asp-for="DisabilityType"
+                        class="form-select rounded-pill p-3">
+
+                    <option value="">اختر نوع الإعاقة</option>
+                    <option value="حركية">حركية</option>
+                    <option value="سمعية">سمعية</option>
+                    <option value="بصرية">بصرية</option>
+
+                </select>
+            </div>
+
+                <div class="col-12 mb-4">
+                    <label class="form-label fw-bold">
+                        وصف الوظيفة
+                    </label>
+
+                    <textarea asp-for="JobDescription"
+                              rows="5"
+                              class="form-control rounded-4"></textarea>
+                </div>
+
+            </div>
+
+        <div class="text-center mt-4">
+
+            <button type="submit"
+                    class="btn btn-success px-5 rounded-pill">
+                حفظ الوظيفة
+            </button>
+
+            <a asp-action="add_newJob"
+               class="btn btn-secondary px-5 rounded-pill">
+                رجوع
+            </a>
+
+        </div>
+       
+
+    </div>
+
+</form>

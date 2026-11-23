@@ -1,0 +1,55 @@
+﻿@model Yad_Aloun2.Models.JobOpportunity
+
+@{
+    ViewData["Title"] = "حذف الوظيفة";
+    Layout = "_Layout";
+}
+
+<div class="container mt-5">
+
+    <div class="card shadow p-4 text-center">
+
+        <h2 class="text-danger mb-4">
+            حذف الوظيفة
+        </h2>
+
+        <h4>
+            هل أنت متأكد من حذف الوظيفة التالية؟
+        </h4>
+
+        <hr />
+
+        <p>
+            <strong>عنوان الوظيفة:</strong>
+            @Model.JobTitle
+        </p>
+
+        <p>
+            <strong>الراتب:</strong>
+            @Model.Salary
+        </p>
+
+        <p>
+            <strong>نوع الدوام:</strong>
+            @Model.JobType
+        </p>
+
+        <form asp-action="DeleteJob" method="post">
+
+            <input type="hidden" asp-for="Id" />
+
+            <button type="submit"
+                    class="btn btn-danger">
+                نعم، حذف
+            </button>
+
+            <a asp-action="add_newJob"
+               class="btn btn-secondary">
+                إلغاء
+            </a>
+
+        </form>
+
+    </div>
+
+</div>

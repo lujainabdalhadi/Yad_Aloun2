@@ -1,0 +1,66 @@
+﻿@model IEnumerable<Yad_Aloun2.Models.Inquiry>
+
+@{
+    ViewData["Title"] = "الرد على الاستفسارات";
+}
+
+<div class="container mt-4">
+   
+    <!-- العنوان -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="fw-bold text-success">الرد على الاستفسارات</h3>
+
+        <!-- البحث -->
+        <input type="text" class="form-control w-25" placeholder="...بحث في البيانات">
+    </div>
+
+    <!-- الكارد -->
+    <div class="card shadow-sm p-3">
+
+        <h5 class="mb-3 fw-bold">استفسارات المستخدمين</h5>
+
+        @foreach (var item in Model)
+        {
+            <div class="border rounded p-3 mb-3">
+
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <strong>@item.SenderName</strong>
+                        <div class="text-muted small">@item.MessageContent</div>
+                    </div>
+
+                  
+                </div>
+
+                <div class="mt-3 bg-light p-3 rounded">
+                    "@item.MessageContent"
+                </div>
+
+                <!-- الرد -->
+               <form asp-action="ReplyInquiry" method="post">
+
+    <input type="hidden" name="id" value="@item.id" />
+
+    <div class="d-flex mt-3">
+
+        <input type="text"
+               name="reply"
+               class="form-control me-2"
+               placeholder="اكتب ردك هنا..." />
+
+        <button type="submit"
+                class="btn btn-success">
+            >
+        </button>
+
+    </div>
+
+</form>
+               
+            </div>
+        }
+
+    </div>
+   
+
+</div>

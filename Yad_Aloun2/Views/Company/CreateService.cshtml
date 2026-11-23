@@ -1,0 +1,39 @@
+﻿@model Yad_Aloun2.Models.ServiceItem
+
+@{
+    ViewData["Title"] = "إضافة خدمة";
+    Layout = "_Layout";
+}
+
+<div class="container mt-4">
+
+    <h4 class="mb-3">إضافة خدمة جديدة</h4>
+
+    <form asp-action="CreateService" method="post">
+
+        <div class="mb-3">
+            <label>اسم الخدمة</label>
+            <input asp-for="Name" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label>التصنيف</label>
+            <input asp-for="Category" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label>عدد الاستخدام</label>
+            <input asp-for="Usage" class="form-control" />
+        </div>
+
+        <div class="form-check mb-3">
+            <input asp-for="Available" class="form-check-input" />
+            <label class="form-check-label">متوفر</label>
+        </div>
+
+        <button type="submit" class="btn btn-success">حفظ</button>
+        <a asp-action="Update" class="btn btn-secondary">رجوع</a>
+
+    </form>
+
+</div>

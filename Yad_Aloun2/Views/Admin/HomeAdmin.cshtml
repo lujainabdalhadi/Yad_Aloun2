@@ -1,0 +1,140 @@
+﻿
+@model Yad_Aloun2.Models.Admin
+
+@{
+    ViewData["Title"] = "الصفحة الرئيسية للمسؤول";
+}
+
+<div class="container-fluid p-0">
+
+    <!-- Header -->
+    <header class="d-flex justify-content-between align-items-center px-4 py-3"
+            style="background-color:#065f46;">
+
+        <div class="text-white">
+            <h2 class="fw-bold mb-0">يد العون</h2>
+            <small>لوحة تحكم المسؤول</small>
+        </div>
+
+        <span class="badge bg-light text-success fs-6 px-3 py-2">
+            @Model.AdminName
+        </span>
+
+    </header>
+
+    <div class="row g-0">
+
+        <!-- Sidebar -->
+        <div class="col-md-3 bg-light p-4" style="min-height:100vh;">
+
+            <ul class="nav flex-column">
+
+                <li class="nav-item mb-2">
+                    <a class="nav-link text-dark" asp-action="Overview" asp-controller="Admin">
+                        نظرة عامة
+                    </a>
+                </li>
+
+                <li class="nav-item mb-2">
+                    <a class="nav-link text-dark" asp-action="CentersAndServicesManagement" asp-controller="Admin">
+                        إدارة المراكز والخدمات
+                    </a>
+                </li>
+
+                <li class="nav-item mb-2">
+                    <a class="nav-link text-dark" asp-action="RequestsForAssistance" asp-controller="Admin">
+                    الرد على الاستفسارات
+                    </a>
+                </li>
+
+                <li class="nav-item mb-2">
+                    <a class="nav-link text-dark" asp-action="CompanyFiles" asp-controller="Admin">
+                        إدارة ملفات الشركات
+                    </a>
+                </li>
+
+                <li class="nav-item mb-2">
+                    <a class="nav-link text-dark" asp-action="UserFiles" asp-controller="Admin">
+                        إدارة ملفات المستخدمين
+                    </a>
+                </li>
+
+                <li class="nav-item mb-2">
+                    <a class="nav-link text-dark" asp-action="add_newJob" asp-controller="Admin">
+                        إضافة وظيفة جديدة
+                    </a>
+                </li>
+
+            </ul>
+
+            <button class="btn btn-success mt-4 w-100">
+                تعديل ملفي الشخصي
+            </button>
+
+        </div>
+
+        <!-- Main Content -->
+        <div class="col-md-9 p-4">
+
+            <div class="text-center mb-4">
+            
+            </div>
+
+            <div class="card shadow p-4 text-center"
+                 style="border-radius:20px;">
+
+                <img src="/img/admin.png"
+                     width="120"
+                     height="120"
+                     class="mx-auto mb-3" />
+
+                <h4>@Model.AdminName</h4>
+
+                <p class="text-success">
+                    مدير النظام الرئيسي
+                </p>
+
+                <div class="row mt-4">
+
+                    <div class="col-md-6">
+                        <label>البريد الإلكتروني</label>
+                        <input class="form-control text-center"
+                               value="@Model.Email"
+                               readonly />
+                    </div>
+
+                    <div class="col-md-6">
+                        <label>الاسم الكامل</label>
+                        <input class="form-control text-center"
+                               value="@Model.AdminName"
+                               readonly />
+                    </div>
+
+                </div>
+
+                <div class="row mt-4">
+
+                    <div class="col-md-6">
+                        <button type="button"
+                                class="btn btn-success w-100 rounded-pill py-3">
+                            حفظ التغييرات
+                        </button>
+                    </div>
+
+                    <div class="col-md-6">
+                        <a asp-action="Logout"
+                           asp-controller="Admin"
+                           class="btn btn-danger w-100 rounded-pill py-3">
+                            تسجيل الخروج
+                        </a>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

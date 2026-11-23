@@ -1,0 +1,297 @@
+﻿@using Microsoft.AspNetCore.Http
+
+
+@if (TempData["SuccessMessage"] != null)
+
+{
+
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+
+}
+
+
+@model Yad_Aloun2.Models.AssistanceRequest
+
+@{
+
+    ViewData["Title"] = "طلب مساعدة";
+
+}
+
+
+<nav class="navbar navbar-expand-lg navbar-dark shadow-sm px-4 py-3" style="background-color: #064e3b; direction: rtl;">
+
+    <div class="container-fluid d-flex justify-content-between align-items-center">
+
+        <div class="d-flex align-items-center gap-4">
+
+            <div class="d-flex align-items-center gap-2">
+
+                <i class="fa fa-hand-holding-heart text-white" style="font-size:42px;"></i>
+
+                <span class="logo-title text-white fw-bold fs-3">يد العون</span>
+
+            </div>
+
+            <div class="vr" style="width: 2px; background-color: #ffffff; opacity: 0.5;"></div>
+
+
+            <div class="d-flex align-items-center gap-2">
+
+                <span class="text-white fs-5 fw-bold"> طلب مساعدة</span>
+
+            </div>
+
+        </div>
+
+        <button class="btn btn-outline-light rounded-pill px-4 py-2 fw-semibold" onclick="location.href='@Url.Action("Support", "services")'">
+
+            <i class="fas fa-headset me-2"></i> الدعم الفني
+
+        </button>
+
+    </div>
+
+</nav>
+
+
+<div class="container mt-4" style="direction: rtl;">
+
+    @if (Context.Session.GetInt32("UserId") != null)
+
+    {
+
+        <form asp-action="RequestAssistance" asp-controller="Services" method="post" enctype="multipart/form-data">
+
+            <input asp-for="User_Id" type="hidden" />
+
+            <input asp-for="AttachmentUrl" type="hidden" />
+
+            <input asp-for="Status" type="hidden" value="Pending" />
+
+
+            <div class="card shadow p-4 mt-4 border-0 rounded-4">
+
+                <div class="progress mb-4" style="height: 8px;">
+
+                    <div id="prog" class="progress-bar" style="width: 33%; background-color: #064e3b;"></div>
+
+                </div>
+
+                <h2 class="mb-5 text-center fw-bold" id="stepTitle" style="color: #064e3b;">طلب مساعدة جديد</h2>
+
+
+                <div id="step1">
+
+                    <div class="mb-3">
+
+                        <label class="form-label fw-bold mb-4 fs-5" style="color: #064e3b;">اختر الخدمة المتاحة من شركائنا:</label>
+
+
+                        <div class="row g-4 text-center">
+
+                            @if (ViewBag.AvailableServices != null && ((List<Yad_Aloun2.Models.ServiceItem>)ViewBag.AvailableServices).Any())
+
+                            {
+
+                                var servicesList = (List<Yad_Aloun2.Models.ServiceItem>)ViewBag.AvailableServices;
+
+
+                                @foreach (var service in servicesList)
+
+                                {
+
+                                    <div class="col-lg-4">
+
+                                        <div class="p-3 rounded-4 border bg-light h-100 shadow-sm d-flex flex-column justify-content-between" style="border: 1px solid #064e3b !important;">
+
+                                            <div class="mb-3 text-success">
+
+                                                @* تحديد الأيقونة حسب القسم ليبقى المظهر جذاباً *@
+
+                                                @if (service.Category.Contains("صحية") || service.Category.Contains("طبية") || service.Category.Contains("علاج"))
+
+                                                {
+
+                                                    <i class="fas fa-heartbeat" style="font-size: 32px; color: #064e3b;"></i>
+
+                                                }
+
+                                                else if (service.Category.Contains("تعليم") || service.Category.Contains("أقساط"))
+
+                                                {
+
+                                                    <i class="fas fa-graduation-cap" style="font-size: 32px; color: #064e3b;"></i>
+
+                                                }
+
+                                                else
+
+                                                {
+
+                                                    <i class="fas fa-wallet" style="font-size: 32px; color: #064e3b;"></i>
+
+                                                }
+
+                                                <h5 class="fw-bold mt-2" style="color: #064e3b;">@service.Category</h5>
+
+                                                <p class="text-muted small mb-0">مقدمة من: @(service.Donor_Company?.CompanyName ?? "شركة مساهمة")</p>
+
+                                            </div>
+
+                                            <hr />
+
+                                            <div class="d-flex flex-column gap-2 mt-3">
+
+                                                <input type="radio" asp-for="Category" value="@service.Name" id="srv_@service.Id" class="btn-check company-selector" data-company-id="@service.CompanyId">
+
+                                                <label class="btn btn-outline-success w-100 py-3 rounded-3 fw-semibold small" for="srv_@service.Id">
+
+                                                    <i class="fas fa-check-circle me-1"></i> @service.Name
+
+                                                </label>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                }
+
+                            }
+
+                            else
+
+                            {
+
+                                <div class="col-12">
+
+                                    <div class="alert alert-info text-center">لا توجد خدمات متاحة حالياً من قبل الشركات في النظام.</div>
+
+                                </div>
+
+                            }
+
+                        </div>
+
+
+                        <span asp-validation-for="Category" class="text-danger d-block mt-4"></span>
+
+                    </div>
+
+
+                    <input type="hidden" asp-for="AssignedCompanyId" id="SelectedCompanyId" />
+
+
+                    <button type="button" class="btn text-white w-100 py-3 rounded-3 mt-5 fw-bold fs-5" style="background-color: #064e3b;" onclick="showStep(2)">التالي</button>
+
+                </div>
+
+
+                <div id="step2" style="display:none;">
+
+                    <div class="mb-3">
+
+                        <label asp-for="Title" class="form-label fw-bold">عنوان الطلب</label>
+
+                        <input asp-for="Title" class="form-control form-control-lg rounded-3" placeholder="أدخل عنواناً مختصراً لطلبك" />
+
+                        <span asp-validation-for="Title" class="text-danger small"></span>
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label asp-for="Description" class="form-label fw-bold">تفاصيل وشرح المساعدة المطلوبة</label>
+
+                        <textarea asp-for="Description" class="form-control rounded-3" rows="5" placeholder="اكتب هنا تفاصيل حالتك والمساعدة التي تحتاجها بالتفصيل..."></textarea>
+
+                        <span asp-validation-for="Description" class="text-danger small"></span>
+
+                    </div>
+
+                    <button type="button" class="btn btn-secondary w-100 py-2 mb-2 rounded-3" onclick="showStep(1)">السابق</button>
+
+                    <button type="button" class="btn text-white w-100 py-2 rounded-3" style="background-color: #064e3b;" onclick="showStep(3)">التالي</button>
+
+                </div>
+
+
+                <div id="step3" style="display:none;">
+
+                    <div class="mb-3">
+
+                        <label class="form-label fw-bold">رفع وثائق أو ملفات معززة (تقارير طبية، إثباتات)</label>
+
+                        <input type="file" name="file" class="form-control form-control-lg rounded-3" />
+
+                    </div>
+
+                    <button type="button" class="btn btn-secondary w-100 py-2 mb-2 rounded-3" onclick="showStep(2)">السابق</button>
+
+                    <button type="submit" class="btn btn-success w-100 py-3 rounded-3 fw-bold fs-5">إرسال الطلب</button>
+
+                </div>
+
+            </div>
+
+        </form>
+
+    }
+
+    else
+
+    {
+
+        <div class="alert alert-warning text-center p-5 shadow border-0 rounded-4">
+
+            <h4 class="fw-bold">عذراً، يرجى تسجيل الدخول أولاً</h4>
+
+            <p class="text-muted">يجب أن تكون مسجلاً في الموقع لتتمكن من تعبئة وتقديم طلب مساعدة.</p>
+
+            <a asp-action="Login" asp-controller="Account" class="btn text-white px-5 py-2 rounded-pill mt-2 fw-bold" style="background-color: #064e3b;">تسجيل الدخول</a>
+
+        </div>
+
+    }
+
+</div>
+
+
+<script>
+    function showStep(s) {
+
+        document.getElementById('step1').style.display =
+            (s === 1) ? 'block' : 'none';
+
+        document.getElementById('step2').style.display =
+            (s === 2) ? 'block' : 'none';
+
+        document.getElementById('step3').style.display =
+            (s === 3) ? 'block' : 'none';
+
+        document.getElementById('prog').style.width =
+            (s * 33) + "%";
+
+        document.getElementById('stepTitle').innerText =
+            (s === 1)
+                ? "طلب مساعدة جديد"
+                : (s === 2)
+                    ? "تفاصيل الطلب"
+                    : "المرفقات";
+    }
+
+    document.querySelectorAll('.company-selector').forEach(function (radio) {
+
+        radio.addEventListener('change', function () {
+
+            if (this.checked) {
+                document.getElementById('SelectedCompanyId').value =
+                    this.dataset.companyId;
+            }
+
+        });
+
+    });
+</script>

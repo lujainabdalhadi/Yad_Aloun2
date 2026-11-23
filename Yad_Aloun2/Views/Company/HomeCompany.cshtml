@@ -1,0 +1,361 @@
+﻿@{
+    ViewData["Title"] = "Index";
+}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة تحكم يد العون - الشريك</title>
+    <!-- Bootstrap 5 CSS (RTL) -->
+    <link class="rtl" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/umd/bootstrap.rtl.min.css">
+
+    <!-- Font Awesome الأيقونات المخصصة لكم -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <!-- خط القاهرة وأيقونات Lucide للباقي -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* إعداد الخط العام ليكون مريحاً وناعماً على الشاشة */
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #f8f9fa;
+            letter-spacing: 0.1px;
+        }
+
+        /* درجات الأخضر الغامق الملكي الخاصة بك */
+        .bg-custom-darkgreen {
+            background-color: #0b4c33 !important;
+        }
+
+        .bg-custom-brand {
+            background-color: #063c26 !important;
+        }
+
+        /* تنسيق التبويب النشط بجانب القائمة */
+        .bg-active-tab {
+            background-color: #e6f4ea !important;
+            color: #0b4c33 !important;
+        }
+
+        .text-custom-dark {
+            color: #0b4c33 !important;
+        }
+    </style>
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+    <!-- Header Section (الأخضر الغامق الأصلي) -->
+    <header class="navbar navbar-dark sticky-top p-3 shadow-sm bg-custom-darkgreen">
+        <div class="container-fluid">
+
+            <!-- اليمين: تم تثبيت اسم الموقع (يد العون) واللوجو المخصص الخاص بك هنا -->
+            <div class="d-flex align-items-center header-right">
+                <div class="ms-3 d-flex align-items-center justify-content-center">
+                    <!-- اللوجو الخاص بك باللون الأبيض وبحجمه المخصص -->
+                    <i class="fa fa-hand-holding-heart text-white" style="font-size:42px;"></i>
+                </div>
+                <div class="text-start text-white">
+                    <span class="h3 fw-semibold text-white mb-0">يد العون</span>
+                    <p class="small opacity-75 m-0" style="font-size: 0.75rem;">لوحة تحكم الشريك</p>
+                </div>
+            </div>
+
+            <!-- اليسار: رابط اسم الشركة الذي ينقل لصفحة "ملف الشركة" عند الضعم عليه بخط ناعم ومريح -->
+            <div class="d-flex align-items-center header-left">
+                <a href="@Url.Action("UpdateProfile", "Company")" class="btn btn-outline-light btn-sm px-3 rounded-pill d-flex align-items-center text-decoration-none fw-normal">
+                    <span class="me-2">@(ViewBag.CompanyName ?? "الشركة")</span>
+                    <i data-lucide="verified" style="width: 16px; height: 16px; color: #4ade80;"></i>
+                </a>
+            </div>
+
+        </div>
+    </header>
+
+    <div class="container-fluid my-4">
+        <div class="row">
+            <aside class="col-md-3 col-lg-2 d-md-block bg-white border-start p-3 sidebar">
+                <div class="position-sticky">
+
+                    <p class="text-muted small fw-semibold mb-3 px-2">
+                        إدارة الشراكة
+                    </p>
+
+                    <nav id="sidebar-nav" class="nav flex-column">
+
+                        <a class="nav-item nav-link border-0 text-start w-100 p-3 rounded-3 mb-1 text-secondary text-decoration-none"
+                           asp-action="HomeCompany" asp-controller="Company">
+                            <div class="d-flex align-items-center">
+                                <i data-lucide="layout-dashboard"
+                                   class="me-2 text-custom-dark"
+                                   style="width:18px;height:18px;"></i>
+                                   
+                                <span>الإحصائيات</span>
+                            </div>
+
+                        </a>
+
+                        <a class="nav-item nav-link border-0 text-start w-100 p-3 rounded-3 mb-1 text-secondary text-decoration-none"
+                           asp-action="ManageServices"
+                           asp-controller="Company">
+
+                            <div class="d-flex align-items-center">
+                                <i data-lucide="concierge-bell"
+                                   class="me-2 text-custom-dark"
+                                   style="width:18px;height:18px;"></i>
+
+                                <span>إدارة خدماتي</span>
+                            </div>
+
+                        </a>
+
+                        <a class="nav-item nav-link border-0 text-start w-100 p-3 rounded-3 mb-1 text-secondary text-decoration-none"
+                           asp-action="Usage"
+                           asp-controller="Company">
+
+                            <div class="d-flex align-items-center">
+                                <i data-lucide="clipboard-check"
+                                   class="me-2 text-custom-dark"
+                                   style="width:18px;height:18px;"></i>
+
+                                <span>جرد الاستخدام</span>
+                            </div>
+
+                        </a>
+
+                        <a class="nav-item nav-link border-0 text-start w-100 p-3 rounded-3 mb-1 text-secondary text-decoration-none"
+                           asp-action="Profile"
+                           asp-controller="Company">
+
+                            <div class="d-flex align-items-center">
+                                <i data-lucide="building-2"
+                                   class="me-2 text-custom-dark"
+                                   style="width:18px;height:18px;"></i>
+
+                                <span>ملف الشركة</span>
+                            </div>
+
+                        </a>
+
+                        <a class="nav-item nav-link border-0 text-start w-100 p-3 rounded-3 mb-1 text-secondary text-decoration-none"
+                           asp-action="RequestAssistance"
+                           asp-controller="Company">
+
+                            <div class="d-flex align-items-center">
+                                <i data-lucide="git-pull-request"
+                                   class="me-2 text-custom-dark"
+                                   style="width:18px;height:18px;"></i>
+
+                                <span>طلبات المساعدة</span>
+                            </div>
+
+                        </a>
+
+                    </nav>
+
+                </div>
+            </aside>
+            <!-- Main Content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <div class="container-fluid p-0">
+
+                    <!-- Search -->
+                    <div class="position-relative mb-4" style="max-width: 320px;">
+                        <i data-lucide="search" class="position-absolute top-50 start-0 translate-middle-y ms-3 text-muted" style="width: 18px; height: 18px;"></i>
+                        <input type="text" class="form-control ps-5 py-2 border-0 shadow-sm fw-normal text-secondary" placeholder="بحث في الخدمات أو السجلات..." style="border-radius: 10px;">
+                    </div>
+
+                    <!-- Statistics View -->
+                    <section id="statistics-view">
+                        <div class="mb-4 pb-2">
+                            <h2 class="h4 fw-semibold text-dark mb-1">الإحصائيات</h2>
+                            <p class="text-muted small m-0 fw-normal">إحصائيات أداء خدماتك وتفاعل المستفيدين.</p>
+                        </div>
+
+                        <!-- الكروت العلوية -->
+                        <div class="row g-4 mb-4">
+                            <!-- كرت إجمالي المستفيدين -->
+                            <div class="col-md-6">
+                                <div class="bg-success-subtle border border-success-subtle p-4 shadow-sm text-start position-relative overflow-hidden rounded-4">
+                                    <span class="position-absolute top-0 end-0 mt-3 me-3 bg-success text-white px-2 py-1 rounded-pill small fw-normal">12%+</span>
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <div class="bg-white rounded-circle p-2 d-flex align-items-center justify-content-center shadow-sm">
+                                            <i data-lucide="heart-handshake" class="text-custom-dark" style="width: 24px; height: 24px;"></i>
+                                        </div>
+                                        <span class="small text-success-emphasis fw-semibold">إجمالي المستفيدين</span>
+                                    </div>
+                                    <h3 class="h2 fw-normal m-0 text-end text-success-emphasis">850</h3>
+                                </div>
+                            </div>
+                            <!-- كرت خدمات تم تقديمها -->
+                            <div class="col-md-6">
+                                <div class="bg-success-subtle border border-success-subtle p-4 shadow-sm text-start position-relative overflow-hidden rounded-4">
+                                    <span class="position-absolute top-0 end-0 mt-3 me-3 bg-success text-white px-2 py-1 rounded-pill small fw-normal">15%+</span>
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <div class="bg-white rounded-circle p-2 d-flex align-items-center justify-content-center shadow-sm">
+                                            <i data-lucide="sparkles" class="text-custom-dark" style="width: 24px; height: 24px;"></i>
+                                        </div>
+                                        <span class="small text-success-emphasis fw-semibold">خدمات تم تقديمها</span>
+                                    </div>
+                                    <h3 class="h2 fw-normal m-0 text-end text-success-emphasis">1,240</h3>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- الجزء السفلي -->
+                        <div class="row g-4">
+                            <!-- كرت حساب شريك موثق (باللون الأخضر الغامق الأصلي) -->
+                            <div class="col-md-5">
+                                <div class="text-white p-4 text-center h-100 d-flex flex-column justify-content-center align-items-center shadow-sm rounded-4 bg-custom-brand">
+                                    <div class="bg-light rounded-circle p-3 mb-3 d-flex align-items-center justify-content-center shadow-sm" style="width: 64px; height: 64px;">
+                                        <i data-lucide="award" class="text-custom-dark" style="width: 32px; height: 32px;"></i>
+                                    </div>
+                                    <h4 class="h5 fw-semibold mb-2">حساب شريك موثق</h4>
+                                    <p class="small opacity-75 px-3 mb-4 lh-lg fw-normal">أنت تساهم في تحسين جودة حياة 850 فرداً من ذوي الإعاقة هذا الشهر.</p>
+                                    <!-- زر عرض جرد الاستخدام -->
+                                    <a href="@Url.Action("usaglog", "Company")" class="btn btn-light text-success fw-semibold px-4 py-2 rounded-3 text-decoration-none shadow-sm">عرض جرد الاستخدام</a>
+                                </div>
+                            </div>
+
+                            <!-- القائمة الأكثر طلباً -->
+                            <div class="col-md-7">
+                                <div class="card border-0 rounded-4 p-4 shadow-sm h-100">
+                                    <div class="d-flex align-items-center mb-4">
+                                        <i data-lucide="trending-up" class="text-custom-dark me-2" style="width: 20px; height: 20px;"></i>
+                                        <h5 class="h6 fw-semibold m-0 text-dark">الأكثر طلباً وتفاعلاً</h5>
+                                    </div>
+
+                                    <div class="mb-4">
+                                        <div class="d-flex justify-content-between small mb-1 fw-normal">
+                                            <span class="text-muted">كرسي متحرك كهربائي</span>
+                                            <span class="text-dark">45 مستفيد</span>
+                                        </div>
+                                        <div class="progress" style="height: 6px;">
+                                            <div class="progress-bar bg-success" role="progressbar" style="width: 45%;"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-4">
+                                        <div class="d-flex justify-content-between small mb-1">
+                                            <span class="text-muted">جلسات علاج طبيعي منزلية</span>
+                                            <span class="text-dark">120 مستفيد</span>
+                                        </div>
+                                        <div class="progress" style="height: 6px;">
+                                            <div class="progress-bar bg-success" role="progressbar" style="width: 85%;"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-2">
+                                        <div class="d-flex justify-content-between small mb-1">
+                                            <span class="text-muted">سماعات طبية ديجيتال</span>
+                                            <span class="text-dark">30 مستفيد</span>
+                                        </div>
+                                        <div class="progress" style="height: 6px;">
+                                            <div class="progress-bar bg-success" role="progressbar" style="width: 30%;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Management View -->
+                    <section id="management-view" class="d-none">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h3 class="h5 fw-semibold m-0">إدارة خدماتي</h3>
+                            <button class="btn btn-success btn-sm d-flex align-items-center px-3 py-2 rounded-3 fw-normal">
+                                <i data-lucide="plus-circle" class="me-1" style="width: 18px; height: 18px;"></i> إضافة خدمة جديدة
+                            </button>
+                        </div>
+
+                        <div class="row g-4">
+                            <!-- Service Card 1 -->
+                            <div class="col-md-6">
+                                <div class="card border-0 p-4 shadow-sm rounded-4 position-relative">
+                                    <div class="position-absolute top-0 end-0 mt-3 me-3 d-flex">
+                                        <button class="btn btn-light btn-sm text-secondary me-1 p-2 rounded-3"><i data-lucide="pencil" style="width: 16px; height: 16px;"></i></button>
+                                        <button class="btn btn-light btn-sm text-danger p-2 rounded-3"><i data-lucide="trash" style="width: 16px; height: 16px;"></i></button>
+                                    </div>
+                                    <div class="text-success mb-3 bg-light rounded-3 p-3 d-inline-block" style="width: fit-content;">
+                                        <i data-lucide="activity" style="width: 28px; height: 28px;"></i>
+                                    </div>
+                                    <h4 class="h6 fw-semibold mb-1">جلسات علاج طبيعي منزلية</h4>
+                                    <p class="text-muted small mb-4 fw-normal">خدمات صحية</p>
+                                    <div class="d-flex justify-content-between align-items-center pt-3 border-top fw-normal">
+                                        <span class="small text-secondary">تم الاستخدام: 120 مرة</span>
+                                        <span class="badge bg-success bg-opacity-10 text-success px-3 py-2 rounded-pill fw-normal">متوفر</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Service Card 2 -->
+                            <div class="col-md-6">
+                                <div class="card border-0 p-4 shadow-sm rounded-4 position-relative">
+                                    <div class="position-absolute top-0 end-0 mt-3 me-3 d-flex">
+                                        <button class="btn btn-light btn-sm text-secondary me-1 p-2 rounded-3"><i data-lucide="pencil" style="width: 16px; height: 16px;"></i></button>
+                                        <button class="btn btn-light btn-sm text-danger p-2 rounded-3"><i data-lucide="trash" style="width: 16px; height: 16px;"></i></button>
+                                    </div>
+                                    <div class="text-success mb-3 bg-light rounded-3 p-3 d-inline-block" style="width: fit-content;">
+                                        <i data-lucide="hearing-ice" style="width: 28px; height: 28px;"></i>
+                                    </div>
+                                    <h4 class="h6 fw-semibold mb-1">سماعات طبية ديجيتال</h4>
+                                    <p class="text-muted small mb-4 fw-normal">أدوات مساعدة</p>
+                                    <div class="d-flex justify-content-between align-items-center pt-3 border-top fw-normal">
+                                        <span class="small text-secondary">تم الاستخدام: 30 مرة</span>
+                                        <span class="badge bg-danger bg-opacity-10 text-danger px-3 py-2 rounded-pill fw-normal">غير متوفر</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="container-fluid bg-white border-top py-3 mt-auto">
+        <div class="row align-items-center px-md-4">
+            <div class="col-md-6 text-center text-md-start mb-2 mb-md-0 fw-normal">
+                <a href="#" class="text-decoration-none text-secondary small me-3">بوابة الشركاء</a>
+                <a href="#" class="text-decoration-none text-secondary small">الدعم الفني للشركات</a>
+            </div>
+            <div class="col-md-6 text-center text-md-end d-flex align-items-center justify-content-center justify-content-md-end text-secondary small fw-normal">
+                <span class="me-2">جميع الحقوق محفوظة منصة يد العون 2026</span>
+                <div class="bg-light p-1 rounded text-success d-flex align-items-center justify-content-center" style="width: 24px; height: 24px;">
+                    <i data-lucide="heart" class="text-success" style="width: 14px; height: 14px;"></i>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // تشغيل نظام الأيقونات
+        lucide.createIcons();
+
+        // التبديل بين القوائم
+        function switchTab(tabId) {
+            if(tabId === 'statistics') {
+                document.getElementById('statistics-view').classList.remove('d-none');
+                document.getElementById('management-view').classList.add('d-none');
+            } else if(tabId === 'management') {
+                document.getElementById('statistics-view').classList.add('d-none');
+                document.getElementById('management-view').classList.remove('d-none');
+            }
+
+            const buttons = document.querySelectorAll('#sidebar-nav .nav-item');
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-active-tab', 'text-custom-dark', 'fw-semibold', 'active');
+                btn.classList.add('bg-transparent', 'text-secondary');
+            });
+
+            const currentBtn = event.currentTarget;
+            currentBtn.classList.add('bg-active-tab', 'text-custom-dark', 'fw-semibold', 'active');
+            currentBtn.classList.remove('bg-transparent', 'text-secondary');
+        }
+    </script>
+</body>
+</html>

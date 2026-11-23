@@ -1,0 +1,50 @@
+﻿@{
+    ViewData["Title"] = "تسجيل دخول المسؤول";
+}
+
+<div class="container py-5" dir="rtl">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+            <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+
+                <div class="text-white text-center py-4" style="background-color:#064e3b;">
+                    <h2 class="fw-bold text-white">تسجيل دخول الادمن</h2>
+                    <p class="mb-0 text-white-50">مرحباً بك، يرجى إدخال بيانات الدخول للوصول إلى لوحة التحكم</p>
+                </div>
+
+                <div class="card-body p-5">
+                    <form asp-action="Login" method="post">
+                        @Html.AntiForgeryToken()
+
+                        <div class="row g-4">
+                            <div class="col-12">
+                                <label class="form-label fw-bold">البريد الإلكتروني</label>
+                                <input name="email" type="email" class="form-control form-control-lg rounded-3" placeholder="admin@example.com" required />
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label fw-bold">كلمة المرور</label>
+                                <input name="password" type="password" class="form-control form-control-lg rounded-3" placeholder="••••••••" required />
+                            </div>
+                        </div>
+
+                        <div class="text-center mt-5">
+                            <button type="submit" style="background-color: #064e3b !important; color: white; width: 100%; padding: 12px; font-weight: bold; border: none; border-radius: 50px; font-size: 1.1rem; cursor: pointer;">
+                                تسجيل الدخول
+                            </button>
+
+                            <div class="mt-4">
+                                <p class="text-muted mb-0">ليس لديك حساب الادمن بعد؟</p>
+                                <a asp-controller="Admin" asp-action="CreateAdmin"
+                                   style="display: block; width: 100%; border: 2px solid #064e3b !important; color: #064e3b !important; padding: 12px; font-weight: bold; text-decoration: none; border-radius: 50px; font-size: 1.1rem; margin-top: 10px;">
+                                    إنشاء حساب جديد
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+
+                    <div asp-validation-summary="All" class="text-danger mt-3 text-center"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
